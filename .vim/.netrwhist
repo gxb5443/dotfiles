@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/gianbiondi/go/src/developers_new/src/.godeps'
+let g:netrw_dirhist_2='/Users/gianbiondi/go/src/developer_portal/models/users'
+let g:netrw_dirhist_3='/Users/gianbiondi/go/src/developer_portal/models/applications/applications.go'
+let g:netrw_dirhist_4='/Users/gianbiondi/go/src/developer_portal/models/users'
+let g:netrw_dirhist_5='/Users/gianbiondi/go/src/developer_portal'
+let g:netrw_dirhist_6='/Users/gianbiondi/go/src/developer_portal/session_utils'
+let g:netrw_dirhist_7='/Users/gianbiondi/go/src/developer_portal/.godeps'
