@@ -5,6 +5,7 @@ set autoread
 set history=700
 set cmdheight=2
 set hid
+set wildmenu
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set ignorecase
@@ -16,10 +17,10 @@ set showmatch
 set mat=2
 
 " Fold me some code
-set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-set foldlevel=1
+"set foldmethod=syntax
+"set foldnestmax=10
+"set nofoldenable
+"set foldlevel=1
 
 " Enable syntax highlight
 syntax enable
@@ -46,6 +47,7 @@ nmap <leader>w :w!<cr>
 nmap <f8> :TagbarToggle<CR>
 
 set smartindent
+set smarttab
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -211,9 +213,6 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,3 +283,55 @@ let g:tagbar_left=1
 let g:instant_markdown_slow=1
 
 
+""""""""""""""""""""""""""""""
+" => Javascript Code Folding
+""""""""""""""""""""""""""""""
+au FileType javascript call JavaScriptFold()
+au FileType javascript setl fen
+au FileType javascript setl nocindent
+function! JavaScriptFold() 
+    setl foldmethod=syntax
+    setl foldlevelstart=1
+    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+
+    function! FoldText()
+        return substitute(getline(v:foldstart), '{.*', '{...}', '')
+    endfunction
+    setl foldtext=FoldText()
+endfunction
+
+
+""""""""""""""""""""""""""""""
+" => Ack.Vim
+""""""""""""""""""""""""""""""
+" When you press gv you Ack after the selected text
+vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+
+" Open Ack and put the cursor in the right position
+map <leader>g :Ack 
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
+" Do :help cope if you are unsure what cope is. It's super useful!
+"
+" When you search with Ack, display your results in cope by doing:
+"   <leader>cc
+"
+" To go to the next search result do:
+"   <leader>n
+"
+" To go to the previous search results do:
+"   <leader>p
+"
+map <leader>cc :botright cope<cr>
+map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+
+""""""""""""""""""""""""""""""
+" => NERDTREE
+""""""""""""""""""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
