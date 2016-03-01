@@ -15,6 +15,7 @@ set incsearch
 set magic
 set showmatch
 set mat=2
+set number
 
 " Fold me some code
 "set foldmethod=syntax
@@ -335,3 +336,10 @@ map <leader>p :cp<cr>
 """"""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+""""""""""""""""""""""""""""""
+" => Go fix
+""""""""""""""""""""""""""""""
+"Enable these if saving is too slow to bear
+"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
