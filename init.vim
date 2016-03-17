@@ -30,6 +30,8 @@ NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimproc.vim', {'build':{'mac':'make'}}
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 
 call neobundle#end()
 
@@ -76,11 +78,11 @@ set wrap "Auto Wrap lines
 set foldcolumn=1
 "set completeopt+=noinsert
 set number
-set relativenumber
 set autoread
 set linebreak
 
-let mapleader=","
+let mapleader=" "
+let g:mapleader=" "
 
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
@@ -96,7 +98,11 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 "colorscheme solarized
 colorscheme molokai
+let g:airline_theme='molokai'
 set background=light
+
+hi Visual  guifg=White guibg=LightBlue gui=none
+hi Visual  guifg=Black guibg=Red gui=none
 
 inoremap ,. <esc>
 vnoremap ,. <esc>
@@ -108,18 +114,13 @@ endif
 " Deocomplete
 " deoplete config
 let g:deoplete#enable_at_startup = 1
-" disable autocomplete
-"let g:deoplete#disable_auto_complete = 1
-"if has("gui_running")
-"    inoremap <silent><expr><C-Space> deoplete#mappings#manual_complete()
-"else
-"    inoremap <silent><expr><C-@> deoplete#mappings#manual_complete()
-"endif
-"" UltiSnips config
-"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" Let <Tab> also do completion
+inoremap <silent><expr> <Tab>
+\ pumvisible() ? "\<C-n>" :
+\ deoplete#mappings#manual_complete()
+
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "(v)im (r)eload
 nmap <silent> ,vr :so %<CR>
@@ -146,25 +147,57 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
 nmap ,w :StripTrailingWhitespaces<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Parenthesis + Surround
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap $1 <esc>`>a)<esc>`<i(<esc>
+vnoremap $2 <esc>`>a]<esc>`<i[<esc>
+vnoremap $3 <esc>`>a}<esc>`<i{<esc>
+vnoremap $$ <esc>`>a"<esc>`<i"<esc>
+vnoremap $q <esc>`>a'<esc>`<i'<esc>
+vnoremap $e <esc>`>a"<esc>`<i"<esc>
 
+" Map Autocomplete
+inoremap $1 ()<esc>i
+inoremap $2 []<esc>i
+inoremap $3 {}<esc>i
+inoremap $4 {<esc>o}<esc>O
+inoremap $q ''<esc>i
+inoremap $e ""<esc>i
+inoremap $t <><esc>i
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_map = '<c-f>'
 map <leader>j :CtrlP<cr>
-map <c-b> :CtrlBuffer<cr>
+map <c-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height=20
 let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
 " Enable omni complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NerdTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <Leader>n :NERDTreeToggle<CR>
-" autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
