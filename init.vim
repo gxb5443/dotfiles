@@ -32,6 +32,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
+"NeoBundle 'rust-lang/rust.vim'
 
 call neobundle#end()
 
@@ -67,19 +68,23 @@ set noswapfile
 set ruler
 
 set smarttab
-set smartindent
-set tabstop=2
-set shiftwidth=2
 set expandtab
+set smartindent
+set tabstop=8
+set shiftwidth=2
+set softtabstop=2
 set lbr
 set tw=500
 set ai "Auto Indent
 set wrap "Auto Wrap lines
 set foldcolumn=1
-"set completeopt+=noinsert
 set number
 set autoread
 set linebreak
+
+set shell=/usr/bin/zsh
+set autochdir
+set lazyredraw
 
 let mapleader=" "
 let g:mapleader=" "
@@ -114,6 +119,10 @@ endif
 " Deocomplete
 " deoplete config
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+" Racer
+let g:racer_cmd = "/usr/bin/racer"
+let $RUST_SRC_PATH = "/usr/src/rust/src/"
 " Let <Tab> also do completion
 inoremap <silent><expr> <Tab>
 \ pumvisible() ? "\<C-n>" :
@@ -206,3 +215,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 let g:go_fmt_command = "goimports"
+
+" Rust
+let g:rustfmt_autosave=0
