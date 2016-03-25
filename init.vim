@@ -111,16 +111,48 @@ if has ('mouse')
   set mouse=a
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deocomplete
-" deoplete config
-let g:deoplete#enable_at_startup = 1
-" Let <Tab> also do completion
-inoremap <silent><expr> <Tab>
-\ pumvisible() ? "\<C-n>" :
-\ deoplete#mappings#manual_complete()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Close the documentation window when completion is done
+"autocmd MyAutoCmd CompleteDone * pclose!
+
+set completeopt+=noinsert,noselect
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+
+" Use partial fuzzy matches like YouCompleteMe
+call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+
+let g:deoplete#auto_completion_start_length = 2
+
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+
+let g:deoplete#sources#go = 'vim-go'
+
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.python = ''
+
+call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
+"call deoplete#custom#set('_', 'converters', ['remove_overlap'])
+
+call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+
+inoremap <silent><expr> <Tab> 
+      \ pumvisibile() ? "\<C-n>" : 
+      \deoplete#mappings#manual_complete()
+
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+function! s:is_whitespace() "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~? '\s'
+endfunction "}}}
 
 "(v)im (r)eload
 nmap <silent> ,vr :so %<CR>
@@ -198,6 +230,8 @@ map <Leader>n :NERDTreeToggle<CR>
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_fmt_command = "goimports"
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -205,4 +239,3 @@ let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-let g:go_fmt_command = "goimports"
