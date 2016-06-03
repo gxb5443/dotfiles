@@ -74,3 +74,5 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+
+export PROMPT+=`$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")`
