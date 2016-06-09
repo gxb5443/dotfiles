@@ -30,7 +30,9 @@ call dein#add('zchee/deoplete-go')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('tpope/vim-fugitive')
-call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('mhinz/vim-signify')
+"call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
@@ -68,6 +70,7 @@ set incsearch
 set magic
 set showmatch
 set mat=2
+set showtabline=0
 
 syntax enable
 
@@ -219,24 +222,45 @@ inoremap $t <><esc>i
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-P> <Plug>yankstack_substitute_newer_paste
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:ctrlp_working_path_mode = 0
+"let g:ctrlp_map = '<c-f>'
+"map <leader>j :CtrlP<cr>
+"map <c-b> :CtrlPBuffer<cr>
+"
+"let g:ctrlp_max_height=20
+"let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+"
+"" Enable omni complete
+""autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+""autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+""autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTRLSpace
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable("ag")
+    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
+nnoremap <silent><C-f> :CtrlSpace O<CR>
+nnoremap <silent><C-b> :CtrlSpace h<CR>
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
+"let g:ctrlp_working_path_mode = 0
+"let g:ctrlp_map = '<c-f>'
+"map <leader>j :CtrlSpace<cr>
+"map <c-b> :CtrlSpaceBuffer<cr>
 
-let g:ctrlp_max_height=20
-let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-
-" Enable omni complete
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"let g:ctrlp_max_height=20
+"let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
