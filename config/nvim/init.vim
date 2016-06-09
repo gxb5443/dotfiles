@@ -293,12 +293,18 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_fields = 1
 
 let g:go_fmt_fail_silently = 0
+au FileType go nmap <leader>t <Plug>(go-test)
 
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
 au FileType go nmap <Leader>rs <Plug>(go-run-split)
 au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
+
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+
+au FileType go nmap <Leader>s <Plug>(go-implements)
 
 let g:go_term_mode = "split"
 
