@@ -1,0 +1,52 @@
+{
+  "segment_data": {
+    "iip": {
+			"before": "Ⓘ  "
+		},
+    "exip": {
+			"before": "ⓦ  "
+		},
+		"time": {
+			"before": "⌚  "
+		},
+		"date": {
+			"before": "📅  "
+		}
+  },
+	"segments": {
+		"right": [
+      {
+        "function": "powerline.segments.common.net.internal_ip",
+        "name": "iip"
+      },
+      {
+        "function": "powerline.segments.common.net.external_ip",
+        "name": "exip",
+        "priority":50
+      },
+			{
+				"function": "powerline.segments.common.net.hostname",
+				"args": {
+          "only_if_ssh": true
+        }
+			},
+      {
+          "function": "powerline.segments.common.wthr.weather",
+          "name": "weather",
+          "priority": 50
+      },
+			{
+				"function": "powerline.segments.common.time.date",
+        "name": "date"
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+        }
+			}
+		]	
+  }
+}
