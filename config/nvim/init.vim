@@ -254,13 +254,8 @@ nnoremap <silent><C-b> :CtrlSpace h<CR>
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
 let g:CtrlSpaceSaveWorkspaceOnExit = 1
-"let g:ctrlp_working_path_mode = 0
-"let g:ctrlp_map = '<c-f>'
-"map <leader>j :CtrlSpace<cr>
-"map <c-b> :CtrlSpaceBuffer<cr>
-
-"let g:ctrlp_max_height=20
-"let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+hi link CtrlSpaceSearch IncSearch
+hi CtrlSpaceSearch guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
