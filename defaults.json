@@ -30,11 +30,6 @@
           "only_if_ssh": true
         }
 			},
-      {
-          "function": "powerline.segments.common.wthr.weather",
-          "name": "weather",
-          "priority": 50
-      },
 			{
 				"function": "powerline.segments.common.time.date",
         "name": "date"
