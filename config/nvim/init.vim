@@ -17,11 +17,12 @@ call dein#begin(expand('/Users/gianfrancob/.config/nvim/bundle/'))
 call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('Shougo/neosnippet-snippets')
 
 " You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+call dein#add('Shougo/vimshell')
 call dein#add('fatih/vim-go')
 call dein#add('majutsushi/tagbar')
 call dein#add('scrooloose/syntastic')
@@ -41,6 +42,10 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('maxbrunsfeld/vim-yankstack')
 call dein#add('rking/ag.vim')
 call dein#add('yegappan/mru')
+call dein#add('Konfekt/FastFold')
+call dein#add('Konfekt/FoldText')
+call dein#add('JamshedVesuna/vim-markdown-preview')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
 
 " Required:
 call dein#end()
@@ -56,6 +61,10 @@ endif
 "End dein Scripts-------------------------
 
 syntax on
+set showcmd
+set showmode
+set lazyredraw
+
 set autoread
 set history=700
 set cmdheight=2
@@ -71,6 +80,7 @@ set magic
 set showmatch
 set mat=2
 set showtabline=0
+set foldenable
 
 syntax enable
 
@@ -80,6 +90,7 @@ set noswapfile
 
 set ruler
 
+set autoindent
 set smarttab
 set smartindent
 set tabstop=2
@@ -177,6 +188,16 @@ noremap ,ve :e ~/.config/nvim/init.vim<CR>
 noremap ,l :update<CR>
 
 " ============================
+" Ultisnips
+" ============================
+"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:UltiSnipsEditSplit="vertical"
+
+" ============================
 " Strip Trailing Whitespaces
 " ============================
 " via: http://rails-bestpractices.com/posts/60-remove-trailing-whitespace
@@ -220,8 +241,8 @@ inoremap $t <><esc>i
 " YankStack
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-P> <Plug>yankstack_substitute_newer_paste
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
@@ -229,7 +250,7 @@ nmap <c-P> <Plug>yankstack_substitute_newer_paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_working_path_mode = 0
 "let g:ctrlp_map = '<c-f>'
-"map <leader>j :CtrlP<cr>
+map <leader>j :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 "
 let g:ctrlp_max_height=20
@@ -246,14 +267,15 @@ let g:ctrlp_max_height=20
 " CTRLSpace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent><C-f> :CtrlSpace O<CR>
 if executable("ag")
     let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
-nnoremap <silent><C-f> :CtrlSpace O<CR>
+let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
 "nnoremap <silent><C-b> :CtrlSpace h<CR>
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
+"let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+"let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+"let g:CtrlSpaceSaveWorkspaceOnExit = 1
 hi link CtrlSpaceSearch IncSearch
 hi CtrlSpaceSearch guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
 
@@ -270,7 +292,7 @@ map <leader>f :MRU<CR>
 " NerdTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
@@ -295,8 +317,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 "Go 
-let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck', 'gofmt']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java', 'scala'] }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,3 +366,13 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ag_working_path_mode="r"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Markdown Preview
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let vim_markdown_preview_github=1
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_toggle=2
+let vim_markdown_preview_temp_file=1
