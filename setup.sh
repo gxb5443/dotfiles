@@ -1,6 +1,13 @@
 #!/bin/bash
 
-brew bundle
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Yup, mac alright..."
+  if ! command -v foo 2>/dev/null; then
+    echo "Homebrew not found. Installing now..."
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+  brew bundle
+fi
 
 ln -fs .hammerspoon/init.lua ~/.hammerspoon/init.lua
 
