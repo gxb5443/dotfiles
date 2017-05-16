@@ -1,5 +1,7 @@
 #!/bin/bash
 
+brew bundle
+
 ln -fs .hammerspoon/init.lua ~/.hammerspoon/init.lua
 
 ln -fs .inputrc ~/.inputrc
