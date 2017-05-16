@@ -69,13 +69,25 @@ function showSlack()
   end
 end
 
+-- Slack-specific app launcher (since I keep it "peeked" to the side by default)
+function showHangouts()
+  local appName = '/Users/gianfrancob/Applications/Chrome Apps.localized/Default knipolnnllmklapflnccelgolnpehhpl.app'
+  local app = hs.application.find(appName)
+  hs.application.launchOrFocus(appName)
+
+  if (app and hs.application.isRunning(app)) then
+    grid.snap_northwest()
+  end
+end
+
 hs.hotkey.bind({"alt"}, '1', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind({"alt"}, '2', showSlack)
 hs.hotkey.bind({"alt"}, '3', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind({"alt"}, '4', showHangouts)
 
 local GITHUB_API_PATH = "https://api.github.com"
 local GITHUB_API_USER = "gxb5443"
-local GITHUB_API_TOKEN = ""
+local GITHUB_API_TOKEN = "7eabd61ff40fb1f718a8d66ac9593d2a29770ae9"
 local GITHUB_REPOS = {
   "DoubleVerify/goproxy",
   "DoubleVerify/Ambassadorjs",

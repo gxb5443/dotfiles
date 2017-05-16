@@ -22,7 +22,10 @@
       {
         "function": "powerline.segments.common.net.external_ip",
         "name": "exip",
-        "priority":50
+        "priority":50,
+        "args": {
+          "query_url": "http://icanhazip.com/"
+        }
       },
 			{
 				"function": "powerline.segments.common.net.hostname",
