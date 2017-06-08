@@ -1,11 +1,4 @@
 #
-# Executes commands at login pre-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-#
 # Browser
 #
 
@@ -17,8 +10,8 @@ fi
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nano'
+export VISUAL='nano'
 export PAGER='less'
 
 #
@@ -67,12 +60,7 @@ fi
 #
 
 if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
-  mkdir -p -m 700 "$TMPDIR"
+  export TMPDIR="$(mktemp -d)"
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
-
-export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
-
-export PROMPT+=`$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")`
