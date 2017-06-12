@@ -64,3 +64,14 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#HOMEBREW
+export PATH=/usr/local/bin:$PATH
+# Golang Stuff
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+#Vertica Stuff
+export VERTICAINI=/usr/local/etc/vertica.ini
+export ODBCINI=/usr/local/etc/odbc.ini

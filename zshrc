@@ -1,4 +1,5 @@
-zmodload zsh/zprof
+#zmodload zsh/zprof
+#
 #
 # Executes commands at the start of an interactive session.
 #
@@ -69,13 +70,7 @@ source $ZPLUG_HOME/init.zsh
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-export _ZPLUG_PREZTO="zsh-users/prezto" # see https://github.com/zplug/zplug/issues/360
-
-# Make sure to use double quotes to prevent shell expansion
-zplug "zsh-users/zsh-completions", defer:2
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "b4b4r07/zsh-vimode-visual", defer:3
-zplug "zsh-users/zsh-history-substring-search"
 #zplug "junegunn/fzf-bin", \
 #  as:command, \
 #  from:gh-r, \
@@ -87,31 +82,34 @@ zplug "zsh-users/zsh-history-substring-search"
 #zplug "junegunn/fzf", \
 #  use:"shell/*.zsh"
 
-# Tips for unused aliases
-#zplug "djui/alias-tips"
-#export ZSH_PLUGINS_ALIAS_TIPS_TEXT="💡  Try: "
-
 # Prezto modules
-zplug 'modules/environment', from:prezto
-zplug 'modules/terminal', from:prezto
-zplug 'modules/editor', from:prezto
-zplug 'modules/history', from:prezto
-zplug 'modules/directory', from:prezto
-zplug 'modules/spectrum', from:prezto
-zplug 'modules/utility', from:prezto
-zplug 'modules/completion', from:prezto
-zplug 'modules/git', from:prezto
-zplug 'modules/osx', from:prezto
-zplug 'modules/tmux', from:prezto
+zplug 'modules/environment', from:prezto, defer:0
+zplug 'modules/editor', from:prezto, defer:1
+zplug 'modules/history', from:prezto, defer:1
+zplug 'modules/directory', from:prezto, defer:1
+zplug 'modules/spectrum', from:prezto, defer:1
+zplug 'modules/utility', from:prezto, defer:1
+zplug 'modules/git', from:prezto, defer:1
+zplug 'modules/completions', from:prezto, defer:2
+zplug 'modules/syntax-highlighting', from:prezto, defer:2
+zplug 'modules/history-substring-search', from:prezto, defer:3
 
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, at:next
 
 # Prezto configuration options
 zstyle ':prezto:*:*' color 'yes'
+zstyle ':prezto:*:*' case-sensitive 'no'
 zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 zstyle ':prezto:module:terminal' auto-title 'yes'
 zstyle ':prezto:module:tmux:iterm' integrate 'no'
+zstyle ':prezto:module:syntax-highlighting' color 'yes'
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+  'main' \
+  'brackets' \
+  'pattern' \
+  'cursor' \
+  'root'
 
 #if ! zplug check --verbose; then
 #  printf "Install? [y/N]: "
@@ -133,7 +131,6 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # -----------------
 # -- ZSH Options --
 # -----------------
-setopt correct              # correct mistyped commands
 setopt extended_glob     # save each command's beginning timestamp and duration to the history file
 setopt list_ambiguous
 setopt auto_menu
@@ -148,6 +145,7 @@ export VISUAL=vim
 # specify autocompletion settings
 zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)(CVS|.svn|.git)'
 zstyle ':completion:*:($EDITOR|v|nvim|gvim|vim|vi):*' ignored-patterns '*.(o|a|so|aux|dvi|swp|fig|bbl|blg|bst|idx|ind|out|toc|class|pdf|ps|eps|pyc|egg-info)'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
 # zsh-history-substring-search
@@ -155,8 +153,6 @@ if zplug check "zsh-users/zsh-history-substring-search"; then
   zmodload zsh/terminfo
   [ -n "${terminfo[kcuu1]}" ] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
   [ -n "${terminfo[kcud1]}" ] && bindkey "${terminfo[kcud1]}" history-substring-search-down
-  bindkey -M emacs '^P' history-substring-search-up
-  bindkey -M emacs '^N' history-substring-search-down
   bindkey -M vicmd 'k' history-substring-search-up
   bindkey -M vicmd 'j' history-substring-search-down
 fi
@@ -179,38 +175,38 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 bindkey -v
 export KEYTIMEOUT=1
 
-#HOMEBREW
-export PATH=/usr/local/bin:$PATH
-
-# Golang Stuff
-export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-
 # VirtualEnvWrapper
-export WORKON_HOME=~/Envs
-source /usr/local/bin/virtualenvwrapper.sh
-
-#Vertica Stuff
-export VERTICAINI=/usr/local/etc/vertica.ini
-export ODBCINI=/usr/local/etc/odbc.ini
+#export WORKON_HOME=~/Envs
+#source /usr/local/bin/virtualenvwrapper.sh
 
 #Stuff
-unsetopt CORRECT
-expand-or-complete-with-dots() {
-  echo -n "\e[31m......\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
-
 setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt AUTO_NAME_DIRS
+setopt IGNORE_EOF
+# If I could disable Ctrl-s completely I would!
+setopt NO_FLOW_CONTROL
+# Keep echo "station" > station from clobbering station
+setopt NO_CLOBBER
+# Case insensitive globbing
+setopt GLOB_COMPLETE
+setopt NO_CASE_GLOB
+# Be Reasonable!
+setopt NUMERIC_GLOB_SORT
+# I don't know why I never set this before.
+setopt EXTENDED_GLOB
+setopt PUSHD_MINUS
 
 setopt ZLE
+unsetopt CORRECT
+# expand-or-complete-with-dots() {
+#  echo -n "\e[31m......\e[0m"
+#  zle expand-or-complete
+#  zle redisplay
+#}
+#zle -N expand-or-complete-with-dots
+#bindkey "^I" expand-or-complete-with-dots
+
 
 # Incremental search is elite!
 bindkey -M vicmd "/" history-incremental-search-backward
@@ -227,6 +223,7 @@ bindkey -M viins ' ' magic-space
 eval "$(direnv hook zsh)"
 
 # Kubernetes
+export EDITOR=nvim
 if [[ -x "$(command -v kubectl)" ]]; then
   source <(kubectl completion zsh)
 fi

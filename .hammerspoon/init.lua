@@ -186,7 +186,7 @@ function menu_item_callback(item_id)
     end
 end
 
-build_menu()
+--build_menu()
 
 -- auto reload config
 configFileWatcher = hs.pathwatcher.new(hs.configdir, hs.reload):start()
