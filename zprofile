@@ -75,3 +75,4 @@ export PATH=$PATH:$GOROOT/bin
 #Vertica Stuff
 export VERTICAINI=/usr/local/etc/vertica.ini
 export ODBCINI=/usr/local/etc/odbc.ini
+export PATH=$PATH:/opt/vertica/bin

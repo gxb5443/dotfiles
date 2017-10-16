@@ -1,61 +1,4 @@
 #zmodload zsh/zprof
-#
-#
-# Executes commands at the start of an interactive session.
-#
-DEFAULT_USER=$USER
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
-POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
-POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
-POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=''
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{blue}\u256D\u2500%f"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{blue}\u2570\uf460%f "
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_joined dir_writable_joined)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time vcs
-                                    background_jobs_joined time_joined)
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND="clear"
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND="green"
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="clear"
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="yellow"
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="clear"
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="yellow"
-POWERLEVEL9K_DIR_HOME_BACKGROUND="clear"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="blue"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="clear"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="blue"
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND="clear"
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="red"
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="clear"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="grey"
-POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND="clear"
-POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND="red"
-POWERLEVEL9K_STATUS_OK_BACKGROUND="clear"
-POWERLEVEL9K_STATUS_OK_FOREGROUND="green"
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND="clear"
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND="red"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-POWERLEVEL9K_TIME_FOREGROUND="blue"
-POWERLEVEL9K_TIME_BACKGROUND="clear"
-POWERLEVEL9K_TIME_FOREGROUND="blue"
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='clear'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='magenta'
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='clear'
-POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='magenta'
-POWERLEVEL9K_USER_DEFAULT_BACKGROUND='clear'
-POWERLEVEL9K_USER_DEFAULT_FOREGROUND='cyan'
-POWERLEVEL9K_USER_ROOT_BACKGROUND='clear'
-POWERLEVEL9K_USER_ROOT_FOREGROUND='red'
-POWERLEVEL9K_USER_ICON="\uf415" # 
-POWERLEVEL9K_ROOT_ICON="\u26a1" # ⚡
-POWERLEVEL9K_HOST_LOCAL_BACKGROUND='clear'
-POWERLEVEL9K_HOST_LOCAL_FOREGROUND='cyan'
-POWERLEVEL9K_HOST_REMOTE_BACKGROUND='clear'
-POWERLEVEL9K_HOST_REMOTE_FOREGROUND='magenta'
-POWERLEVEL9K_SSH_ICON="\uF489 "  # 
-POWERLEVEL9K_OS_ICON_BACKGROUND="clear"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
 
 # Zplug
 # Check if zplug is installed
@@ -71,30 +14,21 @@ source $ZPLUG_HOME/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 zplug "b4b4r07/zsh-vimode-visual", defer:3
-#zplug "junegunn/fzf-bin", \
-#  as:command, \
-#  from:gh-r, \
-#  rename-to:fzf, \
-#  use:"*${(L)$(uname -s)}*amd64*"
-#zplug "junegunn/fzf", \
-#  as:command, \
-#  use:"bin/fzf-tmux"
-#zplug "junegunn/fzf", \
-#  use:"shell/*.zsh"
 
 # Prezto modules
 zplug 'modules/environment', from:prezto, defer:0
+zplug 'modules/directory', from:prezto, defer:1
 zplug 'modules/editor', from:prezto, defer:1
 zplug 'modules/history', from:prezto, defer:1
-zplug 'modules/directory', from:prezto, defer:1
+zplug 'modules/git', from:prezto, defer:0
 zplug 'modules/spectrum', from:prezto, defer:1
 zplug 'modules/utility', from:prezto, defer:1
-zplug 'modules/git', from:prezto, defer:1
-zplug 'modules/completions', from:prezto, defer:2
 zplug 'modules/syntax-highlighting', from:prezto, defer:2
 zplug 'modules/history-substring-search', from:prezto, defer:3
+zplug 'modules/completions', from:prezto, defer:3
 
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, at:next
+zplug mafredri/zsh-async, from:github, defer:0
+zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 
 # Prezto configuration options
 zstyle ':prezto:*:*' color 'yes'
@@ -102,7 +36,7 @@ zstyle ':prezto:*:*' case-sensitive 'no'
 zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 zstyle ':prezto:module:terminal' auto-title 'yes'
-zstyle ':prezto:module:tmux:iterm' integrate 'no'
+zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 zstyle ':prezto:module:syntax-highlighting' color 'yes'
 zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
@@ -110,15 +44,6 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'pattern' \
   'cursor' \
   'root'
-
-#if ! zplug check --verbose; then
-#  printf "Install? [y/N]: "
-#  if read -q; then
-#      echo; zplug install
-#  else
-#      echo
-#  fi
-#fi
 
 zplug load
 export PATH=$HOME/.zplug/bin:$PATH
@@ -131,9 +56,9 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # -----------------
 # -- ZSH Options --
 # -----------------
-setopt extended_glob     # save each command's beginning timestamp and duration to the history file
+#setopt extended_glob     # save each command's beginning timestamp and duration to the history file
 setopt list_ambiguous
-setopt auto_menu
+#setopt auto_menu
 setopt chase_links
 
 # Always enable colored `grep` output.
@@ -180,25 +105,25 @@ export KEYTIMEOUT=1
 #source /usr/local/bin/virtualenvwrapper.sh
 
 #Stuff
-setopt AUTO_CD
-setopt AUTO_PUSHD
-setopt AUTO_NAME_DIRS
-setopt IGNORE_EOF
-# If I could disable Ctrl-s completely I would!
-setopt NO_FLOW_CONTROL
-# Keep echo "station" > station from clobbering station
-setopt NO_CLOBBER
-# Case insensitive globbing
-setopt GLOB_COMPLETE
-setopt NO_CASE_GLOB
-# Be Reasonable!
-setopt NUMERIC_GLOB_SORT
-# I don't know why I never set this before.
-setopt EXTENDED_GLOB
-setopt PUSHD_MINUS
+#setopt AUTO_CD
+#setopt AUTO_PUSHD
+#setopt AUTO_NAME_DIRS
+#setopt IGNORE_EOF
+## If I could disable Ctrl-s completely I would!
+#setopt NO_FLOW_CONTROL
+## Keep echo "station" > station from clobbering station
+#setopt NO_CLOBBER
+## Case insensitive globbing
+#setopt GLOB_COMPLETE
+#setopt NO_CASE_GLOB
+## Be Reasonable!
+#setopt NUMERIC_GLOB_SORT
+## I don't know why I never set this before.
+#setopt EXTENDED_GLOB
+#setopt PUSHD_MINUS
 
-setopt ZLE
-unsetopt CORRECT
+#setopt ZLE
+#unsetopt CORRECT
 # expand-or-complete-with-dots() {
 #  echo -n "\e[31m......\e[0m"
 #  zle expand-or-complete
@@ -224,6 +149,6 @@ eval "$(direnv hook zsh)"
 
 # Kubernetes
 export EDITOR=nvim
-if [[ -x "$(command -v kubectl)" ]]; then
-  source <(kubectl completion zsh)
-fi
+#if [[ -x "$(command -v kubectl)" ]]; then
+#  source <(kubectl completion zsh)
+#fi

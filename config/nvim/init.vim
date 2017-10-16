@@ -7,7 +7,7 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=/Users/gianfrancob/.config/nvim/bundle//repos/github.com/Shougo/dein.vim
+set runtimepath^=/Users/gianfrancob/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
 
 " Required:
 call dein#begin(expand('/Users/gianfrancob/.config/nvim/bundle/'))
@@ -44,12 +44,12 @@ call dein#add('rking/ag.vim')
 call dein#add('yegappan/mru')
 call dein#add('Konfekt/FastFold')
 call dein#add('Konfekt/FoldText')
-call dein#add('JamshedVesuna/vim-markdown-preview')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('luochen1990/rainbow')
 call dein#add('Shougo/neopairs.vim')
 call dein#add('derekwyatt/vim-scala')
 call dein#add('spiroid/vim-ultisnip-scala')
+call dein#add('joereynolds/gtags-scope')
 
 " Required:
 call dein#end()
@@ -107,6 +107,7 @@ set wrap "Auto Wrap lines
 set foldcolumn=1
 "set completeopt+=noinsert
 set number
+set relativenumber
 set autoread
 set linebreak
 
@@ -142,6 +143,19 @@ vnoremap ,. <esc>
 if has ('mouse')
   set mouse=a
 endif
+
+" Movement
+map <Tab> <C-W>w
+map <Bar> <C-W>v<C-W><Right>
+map -     <C-W>s<C-W><Down>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright
+
+set cscopetag
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -368,10 +382,10 @@ let g:ag_working_path_mode="r"
 " => Markdown Preview
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let vim_markdown_preview_github=1
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_toggle=2
-let vim_markdown_preview_temp_file=1
+"let vim_markdown_preview_github=1
+"let vim_markdown_preview_hotkey='<C-m>'
+"let vim_markdown_preview_toggle=2
+"let vim_markdown_preview_temp_file=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
