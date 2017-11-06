@@ -35,8 +35,9 @@ call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('tpope/vim-fugitive')
 call dein#add('mhinz/vim-signify')
-call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('vim-ctrlspace/vim-ctrlspace')
+"call dein#add('ctrlpvim/ctrlp.vim')
+"call dein#add('vim-ctrlspace/vim-ctrlspace')
+call dein#add('junegunn/fzf.vim')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
@@ -246,7 +247,7 @@ noremap ,l :update<CR>
 "inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 let g:UltiSnipsEditSplit="vertical"
@@ -299,30 +300,82 @@ nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=/usr/local/opt/fzf
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+map <c-f> :FZF<cr>
+map <c-b> :Buffers<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 0
-"let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
-"
-let g:ctrlp_max_height=20
-let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-"
+"let g:ctrlp_working_path_mode = 0
+""let g:ctrlp_map = '<c-f>'
+"map <leader>j :CtrlP<cr>
+"map <c-b> :CtrlPBuffer<cr>
+""
+"let g:ctrlp_max_height=20
+"let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLSpace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent><C-f> :CtrlSpace O<CR>
-if executable("ag")
-    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
-hi link CtrlSpaceSearch IncSearch
-hi CtrlSpaceSearch guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-
+"nnoremap <silent><C-f> :CtrlSpace O<CR>
+"if executable("ag")
+"    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+"endif
+"let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
+"hi link CtrlSpaceSearch IncSearch
+"hi CtrlSpaceSearch guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MRU
