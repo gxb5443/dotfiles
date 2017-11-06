@@ -27,7 +27,10 @@ call dein#add('fatih/vim-go')
 call dein#add('majutsushi/tagbar')
 call dein#add('scrooloose/syntastic')
 call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/neopairs.vim')
+call dein#add('Shougo/neoinclude.vim')
 call dein#add('zchee/deoplete-go')
+call dein#add('zchee/deoplete-jedi')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('tpope/vim-fugitive')
@@ -129,7 +132,7 @@ endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:airline_powerline_fonts=1
-"colorscheme solarized
+"colorscheme sol
 colorscheme molokai
 let g:airline_theme='molokai'
 set background=light
@@ -157,6 +160,20 @@ set splitright
 
 set cscopetag
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" User Defined Functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg=empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deocomplete
@@ -169,7 +186,7 @@ set completeopt+=noinsert,noselect
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
-let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Use partial fuzzy matches like YouCompleteMe
 call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
@@ -189,16 +206,32 @@ call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
 
 call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 
-inoremap <silent><expr> <Tab> 
-      \ pumvisibile() ? "\<C-n>" : 
-      \deoplete#mappings#manual_complete()
+inoremap <expr><C-h>
+        \ deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>
+        \ deoplete#smart_close_popup()."\<C-h>"
+"inoremap <silent><expr> <Tab> 
+"      \ pumvisible() ? "\<C-n>" : 
+"      \deoplete#mappings#manual_complete()
+inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
 
 function! s:is_whitespace() "{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~? '\s'
 endfunction "}}}
+
+let g:jedi#auto_vim_configuration = 1
+let g:jedi#documentation_command = "<leader>k"
 
 "(v)im (r)eload
 nmap <silent> ,vr :so %<CR>
@@ -211,7 +244,8 @@ noremap ,l :update<CR>
 " Ultisnips
 " ============================
 "inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
