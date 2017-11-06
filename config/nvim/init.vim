@@ -25,7 +25,8 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimshell')
 call dein#add('fatih/vim-go')
 call dein#add('majutsushi/tagbar')
-call dein#add('scrooloose/syntastic')
+"call dein#add('scrooloose/syntastic')
+call dein#add('w0rp/ale')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neopairs.vim')
 call dein#add('Shougo/neoinclude.vim')
@@ -101,8 +102,8 @@ set ruler
 set autoindent
 set smarttab
 set smartindent
-set tabstop=2
-set shiftwidth=2
+set tabstop=8
+set shiftwidth=4
 set expandtab
 set lbr
 set tw=500
@@ -343,10 +344,10 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+"imap <c-x><c-k> <plug>(fzf-complete-word)
+"imap <c-x><c-f> <plug>(fzf-complete-path)
+"imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+"imap <c-x><c-l> <plug>(fzf-complete-line)
 
 map <c-f> :FZF<cr>
 map <c-b> :Buffers<cr>
@@ -401,21 +402,34 @@ let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_enter = 1
+
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-"Go 
-let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck', 'gofmt']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java', 'scala'] }
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"
+""Go 
+"let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck', 'gofmt']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java', 'scala'] }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
