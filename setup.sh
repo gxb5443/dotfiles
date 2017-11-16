@@ -18,3 +18,6 @@ ln -fs ./config/nvim/init.vim ~/.config/nvim/init.vim
 
 ln -fs zprofile ~/.zprofile
 ln -fs zshrc ~/.zshrc
+
+ln -fs .gitignore_global ~/.gitignore_global
+ln -fs .gitconfig ~/.gitconfig
