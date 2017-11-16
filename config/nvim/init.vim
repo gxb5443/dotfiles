@@ -17,15 +17,9 @@ call dein#begin(expand('/Users/gianfrancob/.config/nvim/bundle/'))
 call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
-"call dein#add('Shougo/neosnippet.vim')
-"call dein#add('Shougo/neosnippet-snippets')
-
 " You can specify revision/branch/tag.
-"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-call dein#add('Shougo/vimshell')
 call dein#add('fatih/vim-go')
 call dein#add('majutsushi/tagbar')
-"call dein#add('scrooloose/syntastic')
 call dein#add('w0rp/ale')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neopairs.vim')
@@ -36,8 +30,7 @@ call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('tpope/vim-fugitive')
 call dein#add('mhinz/vim-signify')
-"call dein#add('ctrlpvim/ctrlp.vim')
-"call dein#add('vim-ctrlspace/vim-ctrlspace')
+call dein#add('jiangmiao/auto-pairs')
 call dein#add('junegunn/fzf.vim')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('scrooloose/nerdtree')
@@ -51,10 +44,10 @@ call dein#add('Konfekt/FastFold')
 call dein#add('Konfekt/FoldText')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('luochen1990/rainbow')
-call dein#add('Shougo/neopairs.vim')
 call dein#add('derekwyatt/vim-scala')
 call dein#add('spiroid/vim-ultisnip-scala')
 call dein#add('joereynolds/gtags-scope')
+call dein#add('alvan/vim-closetag')
 
 " Required:
 call dein#end()
@@ -184,8 +177,12 @@ command! -register CopyMatches call CopyMatches(<q-reg>)
 
 "autocmd MyAutoCmd CompleteDone * pclose!
 
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_skip_check = 1
+
 set completeopt+=noinsert,noselect
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
@@ -200,6 +197,7 @@ let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 let g:deoplete#sources#go = 'vim-go'
 
+let g:deoplete#omni#functions = {}
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 
@@ -215,12 +213,19 @@ inoremap <expr><BS>
 "inoremap <silent><expr> <Tab> 
 "      \ pumvisible() ? "\<C-n>" : 
 "      \deoplete#mappings#manual_complete()
-inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#mappings#manual_complete()
+"inoremap <silent><expr> <TAB>
+"        \ pumvisible() ? "\<C-n>" :
+"        \ <SID>check_back_space() ? "\<TAB>" :
+"        \ deoplete#mappings#manual_complete()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+let g:neopairs#enable = 1
 
 function! s:check_back_space() abort "{{{
     let col = col('.') - 1
@@ -234,6 +239,7 @@ endfunction "}}}
 
 let g:jedi#auto_vim_configuration = 1
 let g:jedi#documentation_command = "<leader>k"
+let g:deoplete#sources#jedi#enable_cache = 1
 
 "(v)im (r)eload
 nmap <silent> ,vr :so %<CR>
@@ -292,6 +298,16 @@ inoremap $q ''<esc>i
 inoremap $e ""<esc>i
 inoremap $t <><esc>i
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CloseTag
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.jsx'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YankStack
@@ -409,9 +425,15 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_enter = 1
+let g:ale_completion_enabled = 0
 
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'python': ['autopep8', 'isort'],
+\}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
