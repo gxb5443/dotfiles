@@ -1,0 +1,16 @@
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	unstage = reset HEAD --
+[user]
+	name = Gian Biondi
+	email = gianfranco.biondi@doubleverify.com
+[core]
+	editor = nvim
+	autocrlf = input
+	excludesfile = /Users/gianfrancob/.gitignore_global
+[push]
+	default = simple
+[merge]
+	ff = true
+[pull]
+	rebase = false
