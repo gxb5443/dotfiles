@@ -26,11 +26,12 @@ call dein#add('Shougo/neopairs.vim')
 call dein#add('Shougo/neoinclude.vim')
 call dein#add('zchee/deoplete-go')
 call dein#add('zchee/deoplete-jedi')
+call dein#add('davidhalter/jedi-vim')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('tpope/vim-fugitive')
 call dein#add('mhinz/vim-signify')
-call dein#add('jiangmiao/auto-pairs')
+"call dein#add('jiangmiao/auto-pairs')
 call dein#add('junegunn/fzf.vim')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('scrooloose/nerdtree')
@@ -39,7 +40,7 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('maxbrunsfeld/vim-yankstack')
 call dein#add('rking/ag.vim')
-call dein#add('yegappan/mru')
+"call dein#add('yegappan/mru')
 call dein#add('Konfekt/FastFold')
 call dein#add('Konfekt/FoldText')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
@@ -48,6 +49,10 @@ call dein#add('derekwyatt/vim-scala')
 call dein#add('spiroid/vim-ultisnip-scala')
 call dein#add('joereynolds/gtags-scope')
 call dein#add('alvan/vim-closetag')
+
+"call dein#add('godlygeek/tabular')
+"call dein#add('easymotion/vim-easymotion')
+
 
 " Required:
 call dein#end()
@@ -398,8 +403,8 @@ map <c-b> :Buffers<cr>
 " MRU
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+"let MRU_Max_Entries = 400
+"map <leader>f :MRU<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -415,6 +420,13 @@ map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr><Paste>
 
 let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Jedi
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python setlocal completeopt-=preview
+let g:jedi#completions_enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -424,7 +436,7 @@ let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
 let g:ale_completion_enabled = 0
 
 let g:ale_sign_error = '>>'
@@ -432,7 +444,7 @@ let g:ale_sign_warning = '--'
 
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
-\   'python': ['autopep8', 'isort'],
+\   'python': ['autopep8'],
 \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
