@@ -10,55 +10,65 @@ endif
 set runtimepath^=/Users/gianfrancob/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin(expand('/Users/gianfrancob/.config/nvim/bundle/'))
+if dein#load_state(expand('/Users/gianfrancob/.config/nvim/bundle/'))
+    call dein#begin(expand('/Users/gianfrancob/.config/nvim/bundle/'))
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
 
-" Add or remove your plugins here:
-" You can specify revision/branch/tag.
-call dein#add('fatih/vim-go')
-call dein#add('majutsushi/tagbar')
-call dein#add('w0rp/ale')
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/neopairs.vim')
-call dein#add('Shougo/neoinclude.vim')
-call dein#add('zchee/deoplete-go')
-call dein#add('zchee/deoplete-jedi')
-"call dein#add('davidhalter/jedi-vim')
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
-call dein#add('tpope/vim-fugitive')
-call dein#add('mhinz/vim-signify')
-"call dein#add('jiangmiao/auto-pairs')
-call dein#add('junegunn/fzf.vim')
-call dein#add('flazz/vim-colorschemes')
-call dein#add('scrooloose/nerdtree')
-call dein#add('jistr/vim-nerdtree-tabs')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('maxbrunsfeld/vim-yankstack')
-call dein#add('rking/ag.vim')
-"call dein#add('yegappan/mru')
-call dein#add('Konfekt/FastFold')
-call dein#add('Konfekt/FoldText')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
-call dein#add('luochen1990/rainbow')
-call dein#add('derekwyatt/vim-scala')
-call dein#add('spiroid/vim-ultisnip-scala')
-call dein#add('joereynolds/gtags-scope')
-"call dein#add('alvan/vim-closetag')
+    " Add or remove your plugins here:
+    " You can specify revision/branch/tag.
+    call dein#add('fatih/vim-go')
+    call dein#add('majutsushi/tagbar')
+    call dein#add('w0rp/ale')
+    call dein#add('Shougo/neopairs.vim')
+    call dein#add('Shougo/neoinclude.vim')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('zchee/deoplete-go')
+    call dein#add('zchee/deoplete-jedi')
+    call dein#add('SirVer/ultisnips')
+    call dein#add('honza/vim-snippets')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('mhinz/vim-signify')
+    "call dein#add('davidhalter/jedi-vim')
+    "call dein#add('jiangmiao/auto-pairs')
+    "call dein#add('junegunn/fzf.vim')
+    "call dein#add('jhawthorn/fzy.vim')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('jistr/vim-nerdtree-tabs')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('maxbrunsfeld/vim-yankstack')
+    "call dein#add('rking/ag.vim')
+    "call dein#add('yegappan/mru')
+    call dein#add('Konfekt/FastFold')
+    call dein#add('Konfekt/FoldText')
+    call dein#add('Xuyuanp/nerdtree-git-plugin')
+    call dein#add('luochen1990/rainbow')
+    "call dein#add('derekwyatt/vim-scala')
+    "call dein#add('spiroid/vim-ultisnip-scala')
+    call dein#add('joereynolds/gtags-scope')
+    "call dein#add('alvan/vim-closetag')
 
-"call dein#add('godlygeek/tabular')
-"call dein#add('easymotion/vim-easymotion')
+    "call dein#add('godlygeek/tabular')
+    "call dein#add('easymotion/vim-easymotion')
+    
+    if !has('nvim')
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
 
-
-" Required:
-call dein#end()
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
+syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
@@ -193,7 +203,7 @@ let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippe
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Use partial fuzzy matches like YouCompleteMe
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 let g:deoplete#auto_completion_start_length = 2
 
@@ -206,10 +216,10 @@ let g:deoplete#omni#functions = {}
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 
-call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
-"call deoplete#custom#set('_', 'converters', ['remove_overlap'])
+call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
+"call deoplete#custom#source('_', 'converters', ['remove_overlap'])
 
-call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 
 inoremap <expr><C-h>
         \ deoplete#smart_close_popup()."\<C-h>"
