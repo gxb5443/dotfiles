@@ -1,10 +1,24 @@
 set t_Co=256
+
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
-"dein Scripts-----------------------------
+
+"dein Configuration -----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
+
+let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
+
+
+" Search and use environments specifically made for Neovim.
+"if isdirectory($VARPATH.'/venv/neovim2')
+"	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
+"endif
+"if isdirectory($VARPATH.'/venv/neovim3')
+"	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
+"endif
 
 " Required:
 set runtimepath^=/Users/gianfrancob/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
@@ -19,42 +33,34 @@ if dein#load_state(expand('/Users/gianfrancob/.config/nvim/bundle/'))
 
     " Add or remove your plugins here:
     " You can specify revision/branch/tag.
-    call dein#add('fatih/vim-go')
+    call dein#add('fatih/vim-go', {'on_ft': ['go']})
     call dein#add('majutsushi/tagbar')
     call dein#add('w0rp/ale')
-    call dein#add('Shougo/neopairs.vim')
+    call dein#add('Raimondi/delimitMate')
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/deoplete.nvim')
-    call dein#add('zchee/deoplete-go')
-    call dein#add('zchee/deoplete-jedi')
-    call dein#add('SirVer/ultisnips')
-    call dein#add('honza/vim-snippets')
+    call dein#add('zchee/deoplete-go', {'on_ft': ['go']})
+    call dein#add('zchee/deoplete-jedi', {'on_ft': ['python']})
+    call dein#add('Shougo/neosnippet', {'on_event': 'InsertCharPre', 'on_ft': ['snippet']})
+    call dein#add('Shougo/neosnippet-snippets')
     call dein#add('tpope/vim-fugitive')
     call dein#add('mhinz/vim-signify')
-    "call dein#add('davidhalter/jedi-vim')
-    "call dein#add('jiangmiao/auto-pairs')
-    "call dein#add('junegunn/fzf.vim')
+    call dein#add('junegunn/fzf.vim')
     "call dein#add('jhawthorn/fzy.vim')
-    call dein#add('Shougo/denite.nvim')
+    "call dein#add('Shougo/denite.nvim')
     call dein#add('flazz/vim-colorschemes')
-    call dein#add('scrooloose/nerdtree')
-    call dein#add('jistr/vim-nerdtree-tabs')
+    call dein#add('scrooloose/nerdtree', {'on_map': {'n': '<Plug>'}})
+    call dein#add('jistr/vim-nerdtree-tabs', {'on_source': ['nerdtree']})
+    call dein#add('Xuyuanp/nerdtree-git-plugin', {'on_source': ['nerdtree']})
     call dein#add('vim-airline/vim-airline')
     call dein#add('vim-airline/vim-airline-themes')
     call dein#add('maxbrunsfeld/vim-yankstack')
-    "call dein#add('rking/ag.vim')
-    "call dein#add('yegappan/mru')
     call dein#add('Konfekt/FastFold')
     call dein#add('Konfekt/FoldText')
-    call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('luochen1990/rainbow')
-    "call dein#add('derekwyatt/vim-scala')
-    "call dein#add('spiroid/vim-ultisnip-scala')
     call dein#add('joereynolds/gtags-scope')
-    "call dein#add('alvan/vim-closetag')
-
-    "call dein#add('godlygeek/tabular')
-    "call dein#add('easymotion/vim-easymotion')
+    call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
+    call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
     
     if !has('nvim')
         call dein#add('roxma/nvim-yarp')
@@ -77,252 +83,66 @@ endif
 
 "End dein Scripts-------------------------
 
-syntax on
-set showcmd
-set showmode
-set lazyredraw
+function! s:source_file(path, ...) abort
+	let use_global = get(a:000, 0, ! has('vim_starting'))
+	let abspath = resolve(expand($VIMPATH.'/nvim/config/'.a:path))
+	if ! use_global
+		execute 'source' fnameescape(abspath)
+		return
+	endif
 
-set autoread
-set history=700
-set cmdheight=2
-set hid
-set wildmenu
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-set magic
-set showmatch
-set mat=2
-set showtabline=0
-set foldenable
-
-syntax enable
-
-set nobackup
-set nowb
-set noswapfile
-
-set ruler
-
-set autoindent
-set smarttab
-set smartindent
-set tabstop=8
-set shiftwidth=4
-set expandtab
-set lbr
-set tw=500
-set ai "Auto Indent
-set wrap "Auto Wrap lines
-set foldcolumn=1
-"set completeopt+=noinsert
-set number
-set relativenumber
-set autoread
-set linebreak
-
-set clipboard=unnamed
-
-let mapleader=" "
-let g:mapleader=" "
-
-set laststatus=2
-set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-
-map 0 ^
-
-set colorcolumn=80
-
-if has("gui_running")
-  set guifont=Inconsoata\ for\ Powerline:h20,Monaco:h17
-endif
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let g:airline_powerline_fonts=1
-"colorscheme sol
-colorscheme molokai
-let g:airline_theme='molokai'
-set background=light
-
-hi Visual  guifg=White guibg=LightBlue gui=none
-hi Visual  guifg=Black guibg=Red gui=none
-
-inoremap ,. <esc>
-vnoremap ,. <esc>
-
-if has ('mouse')
-  set mouse=a
-endif
-
-" Movement
-map <Tab> <C-W>w
-map <Bar> <C-W>v<C-W><Right>
-map -     <C-W>s<C-W><Down>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-set splitbelow
-set splitright
-
-set cscopetag
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" User Defined Functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CopyMatches(reg)
-  let hits = []
-  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
-  let reg=empty(a:reg) ? '+' : a:reg
-  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+	let content = map(readfile(abspath),
+		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
+	let tempfile = tempname()
+	try
+		call writefile(content, tempfile)
+		execute printf('source %s', fnameescape(tempfile))
+	finally
+		if filereadable(tempfile)
+			call delete(tempfile)
+		endif
+	endtry
 endfunction
-command! -register CopyMatches call CopyMatches(<q-reg>)
+
+" Set augroup
+augroup MyAutoCmd
+	autocmd!
+	autocmd CursorHold *? syntax sync minlines=300
+augroup END
+
+call s:source_file('plugins/all.vim')
+call s:source_file('general.vim')
+call s:source_file('theme.vim')
+call s:source_file('movement.vim')
+call s:source_file('udf.vim')
+call s:source_file('plugins/filetype.vim')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deocomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:deoplete#enable_at_startup = 1
+call s:source_file('plugins/deoplete.vim')
 
-"autocmd MyAutoCmd CompleteDone * pclose!
+let g:delimitMate_expand_cr = 1
+let g:neosnippet#data_directory = $VARPATH.'/snippets'
+let g:neosnippet#enable_snipmate_compatibity = 1
+let g:neosnippet#enable_completed_snippet = 1
+let g:neosnippet#expand_word_boundary = 1
+autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
 
-let g:python3_host_prog = '/usr/local/bin/python3'
-let g:python3_host_skip_check = 1
-
-set completeopt+=noinsert,noselect
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-" Use partial fuzzy matches like YouCompleteMe
-call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-
-let g:deoplete#auto_completion_start_length = 2
-
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-
-let g:deoplete#sources#go = 'vim-go'
-
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.python = ''
-
-call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
-"call deoplete#custom#source('_', 'converters', ['remove_overlap'])
-
-call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-
-inoremap <expr><C-h>
-        \ deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>
-        \ deoplete#smart_close_popup()."\<C-h>"
-"inoremap <silent><expr> <Tab> 
-"      \ pumvisible() ? "\<C-n>" : 
-"      \deoplete#mappings#manual_complete()
-"inoremap <silent><expr> <TAB>
-"        \ pumvisible() ? "\<C-n>" :
-"        \ <SID>check_back_space() ? "\<TAB>" :
-"        \ deoplete#mappings#manual_complete()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-let g:neopairs#enable = 1
-
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction"}}}
-
-function! s:is_whitespace() "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~? '\s'
-endfunction "}}}
-
-let g:jedi#auto_vim_configuration = 1
-let g:jedi#documentation_command = "<leader>k"
-let g:deoplete#sources#jedi#enable_cache = 1
-
-"(v)im (r)eload
-nmap <silent> ,vr :so %<CR>
-
-noremap ,ve :e ~/.config/nvim/init.vim<CR>
-
-noremap ,l :update<CR>
-
-" ============================
-" Ultisnips
-" ============================
-"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-let g:UltiSnipsEditSplit="vertical"
-
-" ============================
-" Strip Trailing Whitespaces
-" ============================
-" via: http://rails-bestpractices.com/posts/60-remove-trailing-whitespace
-" Strip trailing whitespace
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
-nmap ,w :StripTrailingWhitespaces<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Parenthesis + Surround
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
-
-" Map Autocomplete
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-inoremap $t <><esc>i
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CloseTag
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
-let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.jsx'
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_shortcut = '>'
-let g:closetag_close_shortcut = '<leader>>'
+"let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+"let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.jsx'
+"let g:closetag_emptyTags_caseSensitive = 1
+"let g:closetag_shortcut = '>'
+"let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YankStack
@@ -330,6 +150,7 @@ let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
@@ -384,45 +205,12 @@ map <c-f> :FZF<cr>
 map <c-b> :Buffers<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTRLP
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:ctrlp_working_path_mode = 0
-""let g:ctrlp_map = '<c-f>'
-"map <leader>j :CtrlP<cr>
-"map <c-b> :CtrlPBuffer<cr>
-""
-"let g:ctrlp_max_height=20
-"let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTRLSpace
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nnoremap <silent><C-f> :CtrlSpace O<CR>
-"if executable("ag")
-"    let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-"endif
-"let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
-"hi link CtrlSpaceSearch IncSearch
-"hi CtrlSpaceSearch guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MRU
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let MRU_Max_Entries = 400
-"map <leader>f :MRU<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NerdTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:NERDTreeWinPos = "left"
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden = 0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
@@ -456,25 +244,6 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'python': ['autopep8'],
 \}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"
-""Go 
-"let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck', 'gofmt']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java', 'scala'] }
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -517,23 +286,6 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ag_working_path_mode="r"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Markdown Preview
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let vim_markdown_preview_github=1
-"let vim_markdown_preview_hotkey='<C-m>'
-"let vim_markdown_preview_toggle=2
-"let vim_markdown_preview_temp_file=1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Rainbow Parenthesis
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -561,22 +313,20 @@ let g:rainbow_conf = {
 \	}
 \}
 
-function! HighlightRepeats() range
-  let lineCounts = {}
-  let lineNum = a:firstline
-  while lineNum <= a:lastline
-    let lineText = getline(lineNum)
-    if lineText != ""
-      let lineCounts[lineText] = (has_key(lineCounts, lineText) ? lineCounts[lineText] : 0) + 1
-    endif
-    let lineNum = lineNum + 1
-  endwhile
-  exe 'syn clear Repeat'
-  for lineText in keys(lineCounts)
-    if lineCounts[lineText] >= 2
-      exe 'syn match Repeat "^' . escape(lineText, '".\^$*[]') . '$"'
-    endif
-  endfor
-endfunction
-
-command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_gzip = 1
+let g:loaded_logiPat = 1
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let g:loaded_rrhelper = 1
+let g:loaded_ruby_provider = 1
+let g:loaded_shada_plugin = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
