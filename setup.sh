@@ -1,23 +1,23 @@
 #!/bin/bash
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  echo "Yup, mac alright..."
-  if ! command -v foo 2>/dev/null; then
-    echo "Homebrew not found. Installing now..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-  brew bundle
-fi
+BASE_DIRECTORY="Users/gianbiondi/dotfiles"
+DIRECTORY_LOCATION=$BASE_DIRECTORY/dotfiles
 
-ln -fs .hammerspoon/init.lua ~/.hammerspoon/init.lua
+#if [[ "$OSTYPE" == "darwin"* ]]; then
+#  echo "Yup, mac alright..."
+#  if ! command -v foo 2>/dev/null; then
+#    echo "Homebrew not found. Installing now..."
+#    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#  fi
+#  brew bundle
+#fi
 
-ln -fs .inputrc ~/.inputrc
-ln -fs .tmux.conf ~/.inputrc
+ln -fs $DIRECTORY_LOCATION/.hammerspoon/init.lua $BASE_DIRECTORY/.hammerspoon/init.lua
 
-ln -fs ./config/nvim/init.vim ~/.config/nvim/init.vim
+ln -fs $DIRECTORY_LOCATION/.inputrc $BASE_DIRECTORY/.inputrc
+ln -fs $DIRECTORY_LOCATION/.tmux.conf $BASE_DIRECTORY/.inputrc
 
-ln -fs zprofile ~/.zprofile
-ln -fs zshrc ~/.zshrc
+ln -fs $DIRECTORY_LOCATION/config/nvim/init.vim $BASE_DIRECTORY/.config/nvim/init.vim
 
-ln -fs .gitignore_global ~/.gitignore_global
-ln -fs .gitconfig ~/.gitconfig
+ln -fs $DIRECTORY_LOCATION/.gitignore_global $BASE_DIRECTORY/.gitignore_global
+ln -fs $DIRECTORY_LOCATION/.gitconfig $BASE_DIRECTORY/.gitconfig

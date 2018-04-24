@@ -3,7 +3,7 @@
 	unstage = reset HEAD --
 [user]
 	name = Gian Biondi
-	email = gianfranco.biondi@doubleverify.com
+	email = biondimeister@gmail.com
 [core]
 	editor = nvim
 	autocrlf = input
