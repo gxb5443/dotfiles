@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_DIRECTORY="Users/gianbiondi/dotfiles"
+BASE_DIRECTORY="$HOME/Documents/dotfiles"
 DIRECTORY_LOCATION=$BASE_DIRECTORY/dotfiles
 
 #if [[ "$OSTYPE" == "darwin"* ]]; then
