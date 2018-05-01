@@ -39,7 +39,8 @@ if dein#load_state(expand('/Users/gianbiondi/.config/nvim/bundle/'))
     call dein#add('Raimondi/delimitMate')
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/deoplete.nvim')
-    call dein#add('zchee/deoplete-go', {'on_ft': ['go']})
+    call dein#add('zchee/deoplete-go', {'on_ft': ['go'], 'build': 'make'})
+    " call dein#add('zchee/deoplete-go', {'build': 'make'})
     call dein#add('zchee/deoplete-jedi', {'on_ft': ['python']})
     call dein#add('Shougo/neosnippet', {'on_event': 'InsertCharPre', 'on_ft': ['snippet']})
     call dein#add('Shougo/neosnippet-snippets')
@@ -73,6 +74,7 @@ if dein#load_state(expand('/Users/gianbiondi/.config/nvim/bundle/'))
 endif
 
 " Required:
+filetype off                    " Reset filetype detection first ...
 filetype plugin indent on
 syntax enable
 
@@ -250,7 +252,11 @@ let g:ale_fixers = {
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goreturns"
+let g:go_snippet_engine = "neosnippet"
+let g:go_list_type = "quickfix"
+let g:go_autodetect_gopath = 1
+let g:go_gocode_autobuild = 1
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
