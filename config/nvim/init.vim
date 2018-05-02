@@ -21,11 +21,11 @@ let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 "endif
 
 " Required:
-set runtimepath^=/Users/gianbiondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath^=/Users/gianfranco.biondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state(expand('/Users/gianbiondi/.config/nvim/bundle/'))
-    call dein#begin(expand('/Users/gianbiondi/.config/nvim/bundle/'))
+if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
+    call dein#begin(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
 
     " Let dein manage dein
     " Required:

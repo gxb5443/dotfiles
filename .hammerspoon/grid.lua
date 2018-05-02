@@ -13,7 +13,7 @@ function grid.snap(win, x, y, w, h)
     w = w,
     h = h,
   }
-  win:setFrame(newframe, 0)
+  win:setFrameInScreenBounds(newframe, 0.05)
 end
 
 -- |XX|
