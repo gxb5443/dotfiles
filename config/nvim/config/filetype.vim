@@ -119,18 +119,18 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " }}}
 " Markdown {{{
-let g:markdown_fenced_languages = [
-	\  'css',
-	\  'javascript',
-	\  'js=javascript',
-	\  'json=javascript',
-	\  'python',
-	\  'py=python',
-	\  'sh',
-	\  'sass',
-	\  'xml',
-	\  'vim'
-	\]
+"let g:markdown_fenced_languages = [
+"	\  'css',
+"	\  'javascript',
+"	\  'js=javascript',
+"	\  'json=javascript',
+"	\  'python',
+"	\  'py=python',
+"	\  'sh',
+"	\  'sass',
+"	\  'xml',
+"	\  'vim'
+"	\]
 
 " }}}
 " Folding {{{

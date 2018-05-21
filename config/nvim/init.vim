@@ -40,7 +40,6 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('zchee/deoplete-go', {'on_ft': ['go'], 'build': 'make'})
-    " call dein#add('zchee/deoplete-go', {'build': 'make'})
     call dein#add('zchee/deoplete-jedi', {'on_ft': ['python']})
     call dein#add('Shougo/neosnippet', {'on_event': 'InsertCharPre', 'on_ft': ['snippet']})
     call dein#add('Shougo/neosnippet-snippets')
@@ -62,7 +61,11 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('joereynolds/gtags-scope')
     call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
     call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
-    
+    "call dein#add('thinca/vim-quickrun')
+    "call dein#add('Shougo/vimproc.vim')
+    "call dein#add('callmekohei/deoplete-fsharp')
+    "call dein#add('fsharp/vim-fsharp', {'on_ft': 'fsharp', 'build': 'make fsautocomplete'})
+
     if !has('nvim')
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
@@ -71,6 +74,7 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     " Required:
     call dein#end()
     call dein#save_state()
+    "call dein#load_toml('dein.toml')
 endif
 
 " Required:
@@ -133,7 +137,7 @@ let g:neosnippet#enable_snipmate_compatibity = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:neosnippet#expand_word_boundary = 1
 autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
-
+au FileType go let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

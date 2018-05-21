@@ -16,3 +16,5 @@ set -x PATH $PATH $GOROOT/bin
 
 
 fish_vi_key_bindings
+
+. ~/perl5/perlbrew/etc/perlbrew.fish

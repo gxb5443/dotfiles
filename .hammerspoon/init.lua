@@ -64,9 +64,9 @@ function showSlack()
   local app = hs.application.find(appName)
   hs.application.launchOrFocus(appName)
 
-  if (app and hs.application.isRunning(app)) then
-    grid.snap_northwest()
-  end
+  --if (app and hs.application.isRunning(app)) then
+  --  grid.snap_northwest()
+  --end
 end
 
 function showHangouts()
