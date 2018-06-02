@@ -7,40 +7,48 @@
 
 " General settings " {{{
 " ---
-" let g:deoplete#auto_complete_delay = 50  " Default is 50
+"let g:deoplete#auto_complete_delay = 1000  " Default is 50
 " let g:deoplete#auto_refresh_delay = 500  " Default is 500
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_refresh_always = 0
+let g:deoplete#enable_at_startup = 0
+autocmd InsertEnter * call deoplete#enable()
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#max_abbr_width = 35
-let g:deoplete#max_menu_width = 20
+let g:deoplete#max_menu_width = 21
 let g:deoplete#skip_chars = ['(', ')', '<', '>']
-let g:deoplete#tag#cache_limit_size = 800000
-let g:deoplete#file#enable_buffer_path = 1
 
-let g:deoplete#sources#jedi#statement_length = 30
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#short_types = 1
+let g:jedi#auto_vim_configuration = 1
+let g:deoplete#sources#jedi#enable_cache = 1
+let g:deoplete#sources#jedi#statement_length = 31
+let g:deoplete#sources#jedi#show_docstring = 0
+let g:deoplete#sources#jedi#short_types = 0
 
-let g:deoplete#sources#ternjs#filetypes = [
-	\ 'jsx',
-	\ 'javascript.jsx',
-	\ 'vue',
-	\ 'javascript'
-	\ ]
 
-let g:deoplete#sources#ternjs#timeout = 3
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#docs = 1
+"let g:deoplete#sources#ternjs#filetypes = [
+"	\ 'jsx',
+"	\ 'javascript.jsx',
+"	\ 'vue',
+"	\ 'javascript'
+"	\ ]
+
+"let g:deoplete#sources#ternjs#timeout = 3
+"let g:deoplete#sources#ternjs#types = 1
+"let g:deoplete#sources#ternjs#docs = 1
+set completeopt+=noinsert,noselect
 
 call deoplete#custom#source('_', 'min_pattern_length', 2)
+call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " }}}
 " Limit Sources " {{{
 " ---
-
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources = get(g:, 'deoplete#sources', {})
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#pointer = 1
 let g:deoplete#sources#go#align_class = 1
 " let g:deoplete#sources.go = ['vim-go']
 " let g:deoplete#sources.javascript = ['file', 'ternjs']
@@ -48,7 +56,7 @@ let g:deoplete#sources#go#align_class = 1
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
-" let g:deoplete#ignore_sources.python = ['syntax']
+"let g:deoplete#ignore_sources.python = ['syntax']
 " let g:deoplete#ignore_sources.php = ['omni']
 
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])

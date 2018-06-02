@@ -14,6 +14,8 @@ set -x PATH $PATH /usr/local/Cellar
 set -x PATH $PATH $GOPATH/bin
 set -x PATH $PATH $GOROOT/bin
 
+#set -x LESS '-C -M -I -j 10 -# 4'
+set -x LESS '-R -C -M -I -j 10 -# 4'
 
 fish_vi_key_bindings
 

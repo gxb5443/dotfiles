@@ -16,9 +16,9 @@ let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 "if isdirectory($VARPATH.'/venv/neovim2')
 "	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
 "endif
-"if isdirectory($VARPATH.'/venv/neovim3')
-"	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
-"endif
+if isdirectory($VARPATH.'/venv/neovim3')
+	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
+endif
 
 " Required:
 set runtimepath^=/Users/gianfranco.biondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
@@ -41,6 +41,7 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('zchee/deoplete-go', {'on_ft': ['go'], 'build': 'make'})
     call dein#add('zchee/deoplete-jedi', {'on_ft': ['python']})
+    call dein#add('Shougo/neocomplcache')
     call dein#add('Shougo/neosnippet', {'on_event': 'InsertCharPre', 'on_ft': ['snippet']})
     call dein#add('Shougo/neosnippet-snippets')
     call dein#add('tpope/vim-fugitive')
@@ -243,8 +244,10 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_enter = 0
 let g:ale_completion_enabled = 0
 
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
+"let g:ale_sign_warning = '--'
+"let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '⤫'
 
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
@@ -262,13 +265,20 @@ let g:go_list_type = "quickfix"
 let g:go_autodetect_gopath = 1
 let g:go_gocode_autobuild = 1
 
+let g:go_auto_type_info = 1
+
+let g:go_addtags_transform = "snakecase"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_highlight_fields = 1
+let g:go_highlight_extra_types = 1
+
+let g:go_auto_sameids = 1
 
 let g:go_fmt_fail_silently = 0
 au FileType go nmap <leader>t <Plug>(go-test)
