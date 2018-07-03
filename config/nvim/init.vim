@@ -19,6 +19,7 @@ let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 if isdirectory($VARPATH.'/venv/neovim3')
 	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
 endif
+let g:python3_host_skip_check = 1
 
 " Required:
 set runtimepath^=/Users/gianfranco.biondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
@@ -62,6 +63,7 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('joereynolds/gtags-scope')
     call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
     call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
+    call dein#add('jremmen/vim-ripgrep')
     "call dein#add('thinca/vim-quickrun')
     "call dein#add('Shougo/vimproc.vim')
     "call dein#add('callmekohei/deoplete-fsharp')
@@ -252,6 +254,8 @@ let g:ale_sign_error = '⤫'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'python': ['autopep8'],
+\   'lua': ['luacheck'],
+\
 \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -23,7 +23,7 @@ let g:jedi#auto_vim_configuration = 1
 let g:deoplete#sources#jedi#enable_cache = 1
 let g:deoplete#sources#jedi#statement_length = 31
 let g:deoplete#sources#jedi#show_docstring = 0
-let g:deoplete#sources#jedi#short_types = 0
+let g:deoplete#sources#jedi#short_types = 1
 
 
 "let g:deoplete#sources#ternjs#filetypes = [
@@ -56,7 +56,7 @@ let g:deoplete#sources#go#align_class = 1
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
-"let g:deoplete#ignore_sources.python = ['syntax']
+let g:deoplete#ignore_sources.python = ['syntax' ,'buffer', 'member', 'tag']
 " let g:deoplete#ignore_sources.php = ['omni']
 
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
