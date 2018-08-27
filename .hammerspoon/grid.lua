@@ -13,7 +13,7 @@ function grid.snap(win, x, y, w, h)
     w = w,
     h = h,
   }
-  win:setFrameInScreenBounds(newframe, 0.05)
+  win:setFrameInScreenBounds(newframe)
 end
 
 -- |XX|
@@ -21,7 +21,7 @@ end
 function grid.maximize_window()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x, 0, s.w, s.h)
+  grid.snap(win, s.x, s.y, s.w, s.h)
 end
 
 -- |X |
@@ -29,7 +29,7 @@ end
 function grid.snap_northwest()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x, 0, s.w/2, s.h/2)
+  grid.snap(win, s.x, s.y, s.w/2, s.h/2)
 end
 
 -- |XX|
@@ -37,7 +37,7 @@ end
 function grid.snap_north()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x, 0, s.w, s.h/2)
+  grid.snap(win, s.x, s.y, s.w, s.h/2)
 end
 
 -- | X|
@@ -45,7 +45,7 @@ end
 function grid.snap_northeast()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x+s.w/2, 0, s.w/2, s.h/2)
+  grid.snap(win, s.x+s.w/2, s.y, s.w/2, s.h/2)
 end
 
 -- |X |
@@ -53,7 +53,7 @@ end
 function grid.snap_west()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x, 0, s.w/2, s.h)
+  grid.snap(win, s.x, s.y, s.w/2, s.h)
 end
 
 
@@ -62,7 +62,7 @@ end
 function grid.snap_east()
   local win = window.focusedWindow()
   local s = win:screen():frame()
-  grid.snap(win, s.x+s.w/2, 0, s.w/2, s.h)
+  grid.snap(win, s.x+s.w/2, s.y, s.w/2, s.h)
 end
 
 -- |  |
