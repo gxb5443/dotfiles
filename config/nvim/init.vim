@@ -22,15 +22,17 @@ endif
 let g:python3_host_skip_check = 1
 
 " Required:
-set runtimepath^=/Users/gianfranco.biondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
+"set runtimepath^=/Users/gianfranco.biondi/.config/nvim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath+=/Users/gianfranco.biondi/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
-    call dein#begin(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
+if dein#load_state(expand('/Users/gianfranco.biondi/.cache/dein'))
+    call dein#begin(expand('/Users/gianfranco.biondi/.cache/dein'))
 
     " Let dein manage dein
     " Required:
-    call dein#add('Shougo/dein.vim')
+    " call dein#add('Shougo/dein.vim')
+    call dein#add('/Users/gianfranco.biondi/.cache/dein/repos/github.com/Shougo/dein.vim')
 
     " Add or remove your plugins here:
     " You can specify revision/branch/tag.
@@ -48,8 +50,6 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('tpope/vim-fugitive')
     call dein#add('mhinz/vim-signify')
     call dein#add('junegunn/fzf.vim')
-    "call dein#add('jhawthorn/fzy.vim')
-    "call dein#add('Shougo/denite.nvim')
     call dein#add('flazz/vim-colorschemes')
     call dein#add('scrooloose/nerdtree', {'on_map': {'n': '<Plug>'}})
     call dein#add('jistr/vim-nerdtree-tabs', {'on_source': ['nerdtree']})
@@ -64,10 +64,6 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.config/nvim/bundle/'))
     call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
     call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
     call dein#add('jremmen/vim-ripgrep')
-    "call dein#add('thinca/vim-quickrun')
-    "call dein#add('Shougo/vimproc.vim')
-    "call dein#add('callmekohei/deoplete-fsharp')
-    "call dein#add('fsharp/vim-fsharp', {'on_ft': 'fsharp', 'build': 'make fsautocomplete'})
 
     if !has('nvim')
         call dein#add('roxma/nvim-yarp')
@@ -144,16 +140,6 @@ au FileType go let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CloseTag
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
-"let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.jsx'
-"let g:closetag_emptyTags_caseSensitive = 1
-"let g:closetag_shortcut = '>'
-"let g:closetag_close_shortcut = '<leader>>'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YankStack
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -203,12 +189,6 @@ let g:fzf_colors =
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-"imap <c-x><c-k> <plug>(fzf-complete-word)
-"imap <c-x><c-f> <plug>(fzf-complete-path)
-"imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-"imap <c-x><c-l> <plug>(fzf-complete-line)
 
 map <c-f> :FZF<cr>
 map <c-b> :Buffers<cr>
@@ -263,7 +243,7 @@ let g:ale_fixers = {
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_fmt_command = "goreturns"
+let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
 let g:go_autodetect_gopath = 1
@@ -297,16 +277,7 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 
 let g:go_term_mode = "split"
 
-"nmap <F8> :TagbarToggle<CR>
 nmap ,, :TagbarToggle<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => surround.vim config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

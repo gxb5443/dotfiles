@@ -9,7 +9,7 @@
 " ---
 "let g:deoplete#auto_complete_delay = 1000  " Default is 50
 " let g:deoplete#auto_refresh_delay = 500  " Default is 500
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 autocmd InsertEnter * call deoplete#enable()
 
 let g:neosnippet#enable_snipmate_compatibility = 1

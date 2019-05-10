@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/gianfranco.biondi/Documents/guardians-envoy-extensions/envoy'
+let g:netrw_dirhist_2='/Users/gianfranco.biondi/Documents/prometheus-rules/platform/guardians/envoy-nebula'
+let g:netrw_dirhist_3='/Users/gianfranco.biondi/Documents/prometheus-rules/platform/guardians/envoy'
