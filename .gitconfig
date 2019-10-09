@@ -14,9 +14,7 @@
 	ff = true
 [pull]
 	rebase = false
-[url "git@github.com:"]
-    insteadOf = "https://github.com/"
-[http]
-	proxy = http://g0b00i2@proxy-intlho.wal-mart.com:8080
+#[url "git@github.com:"]
+#    insteadOf = "https://github.com/"
 [credential]
 	helper = osxkeychain
