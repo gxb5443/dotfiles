@@ -2,8 +2,8 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset HEAD --
 [user]
-	name = Gianfranco Biondi
-	email = gianfranco.biondi@jet.com
+	name = Gian Biondi
+	email = biondimeister@gmail.com
 [core]
 	editor = nvim
 	autocrlf = input
