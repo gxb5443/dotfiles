@@ -57,8 +57,8 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.cache/dein'))
     call dein#add('vim-airline/vim-airline')
     call dein#add('vim-airline/vim-airline-themes')
     call dein#add('maxbrunsfeld/vim-yankstack')
-    call dein#add('Konfekt/FastFold')
-    call dein#add('Konfekt/FoldText')
+    " call dein#add('Konfekt/FastFold')
+    " call dein#add('Konfekt/FoldText')
     call dein#add('luochen1990/rainbow')
     call dein#add('joereynolds/gtags-scope')
     call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
@@ -231,6 +231,10 @@ let g:ale_completion_enabled = 0
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '⤫'
 
+let g:ale_linters = {
+    \ 'go': ['gopls'],
+\}
+
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'python': ['autopep8'],
@@ -243,6 +247,8 @@ let g:ale_fixers = {
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
