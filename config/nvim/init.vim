@@ -38,12 +38,13 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.cache/dein'))
     " You can specify revision/branch/tag.
     call dein#add('fatih/vim-go', {'on_ft': ['go']})
     call dein#add('majutsushi/tagbar')
-    call dein#add('w0rp/ale')
+    call dein#add('dense-analysis/ale')
     call dein#add('Raimondi/delimitMate')
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('zchee/deoplete-go', {'on_ft': ['go'], 'build': 'make'})
     call dein#add('zchee/deoplete-jedi', {'on_ft': ['python']})
+    call dein#add('zchee/deoplete-clang', {'on_ft': ['c++']})
     call dein#add('Shougo/neocomplcache')
     call dein#add('Shougo/neosnippet', {'on_event': 'InsertCharPre', 'on_ft': ['snippet']})
     call dein#add('Shougo/neosnippet-snippets')
@@ -62,8 +63,10 @@ if dein#load_state(expand('/Users/gianfranco.biondi/.cache/dein'))
     call dein#add('luochen1990/rainbow')
     call dein#add('joereynolds/gtags-scope')
     call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
-    call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
+    " call dein#add('Shougo/neco-syntax', {'on_source': ['deoplete.nvim']})
     call dein#add('jremmen/vim-ripgrep')
+    call dein#add('rhysd/vim-clang-format', {'on_ft': ['c','cc','cpp']})
+
 
     if !has('nvim')
         call dein#add('roxma/nvim-yarp')
@@ -193,6 +196,16 @@ omap <leader><tab> <plug>(fzf-maps-o)
 map <c-f> :FZF<cr>
 map <c-b> :Buffers<cr>
 
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NerdTree
@@ -239,7 +252,7 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'python': ['autopep8'],
 \   'lua': ['luacheck'],
-\
+\   'cpp': ['clang-format'],
 \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

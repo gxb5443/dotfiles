@@ -2,8 +2,8 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset HEAD --
 [user]
-	name = Gian Biondi
-	email = biondimeister@gmail.com
+	name = Gianfranco Biondi
+	email = gianfranco.biondi@walmart.com
 [core]
 	editor = nvim
 	autocrlf = input
@@ -14,7 +14,7 @@
 	ff = true
 [pull]
 	rebase = false
-#[url "git@github.com:"]
-#    insteadOf = "https://github.com/"
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
 [credential]
 	helper = osxkeychain
