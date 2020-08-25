@@ -14,10 +14,10 @@ DIRECTORY_LOCATION=$BASE_DIRECTORY/dotfiles
 #  brew bundle
 #fi
 
-#ln -fs $DIRECTORY_LOCATION/.hammerspoon/init.lua $HOME/.hammerspoon/init.lua
-#
-#ln -fs $DIRECTORY_LOCATION/.inputrc $HOME/.inputrc
-#ln -fs $DIRECTORY_LOCATION/.tmux.conf $HOME/.tmux.conf
+ln -fs $DIRECTORY_LOCATION/.hammerspoon $HOME/.hammerspoon
+
+ln -fs $DIRECTORY_LOCATION/.inputrc $HOME/.inputrc
+ln -fs $DIRECTORY_LOCATION/.tmux.conf $HOME/.tmux.conf
 
 ln -fs $DIRECTORY_LOCATION/config/nvim $HOME/.config/nvim
 
