@@ -21,5 +21,7 @@ ln -fs $DIRECTORY_LOCATION/.tmux.conf $HOME/.tmux.conf
 
 ln -fs $DIRECTORY_LOCATION/config/nvim $HOME/.config/nvim
 
+ln -fs $DIRECTORY_LOCATION/config/fish/config.fish $HOME/.config/fish/config.fish
+
 #ln -fs $DIRECTORY_LOCATION/.gitignore_global $HOME/.gitignore_global
 #ln -fs $DIRECTORY_LOCATION/.gitconfig $HOME/.gitconfig

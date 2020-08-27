@@ -22,15 +22,16 @@ if dein#load_state('/Users/gianfranco.biondi/.cache/dein')
 
   call dein#add('morhetz/gruvbox')
 
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
+  "call dein#add('vim-airline/vim-airline')
+  "call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('itchyny/lightline.vim')
 
   "call dein#add('neoclide/coc.nvim')
   call dein#add('neoclide/coc.nvim', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
-  call dein#add('neoclide/coc-sh', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
+  call dein#add('josa24/coc-sh', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc-json', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc-yaml', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
-  call dein#add('neoclide/coc-clangd', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
+  call dein#add('clangd/coc-clangd', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc-git', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('fannheyward/coc-markdownlint')
 
