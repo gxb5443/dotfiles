@@ -28,7 +28,7 @@ if dein#load_state('/Users/gianfranco.biondi/.cache/dein')
 
   "call dein#add('neoclide/coc.nvim')
   call dein#add('neoclide/coc.nvim', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
-  call dein#add('josa24/coc-sh', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
+  call dein#add('josa42/coc-sh', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc-json', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('neoclide/coc-yaml', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
   call dein#add('clangd/coc-clangd', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
@@ -40,6 +40,8 @@ if dein#load_state('/Users/gianfranco.biondi/.cache/dein')
   " old version that runs on neovim 0.4.x
   "call dein#add('ryanoasis/vim-devicons') " for file icons
   "call dein#add('kyazdani42/nvim-tree.lua', { 'rev': 'afc86a9623024be6f7d761e4363c833b46c44ca5' })
+  "
+  call dein#add('fatih/vim-go')
 
   " Required:
   call dein#end()

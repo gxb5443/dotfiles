@@ -100,9 +100,9 @@ else
 set textwidth=80        " Text width set to 80 chars before wrap
 set autoindent          " Use same indenting on new lines
 set smartindent         " Automatic indenting on new lines
-set smarttab            " Tabs inserts blank according to tab width 
-set tabstop=4           " Number of spaces for a tab
-set shiftwidth=4        " Number of spaces to use in autoindent
+set smarttab            " Tabs inserts blank according to tab width
+set tabstop=2           " Number of spaces for a tab
+set shiftwidth=2        " Number of spaces to use in autoindent
 set shiftround          " Round indent to multiple of shift width
 
 " Searching

@@ -12,8 +12,14 @@ set -x PATH $PATH $GOROOT/bin
 # Set up Rust
 set -x PATH $PATH ~/.cargo/bin
 
+# Set up Flutter
+set -x PATH $PATH ~/Documents/flutter/bin
+
 # Set up Old Java
 set -x PATH $PATH ~/Downloads/apache-maven-3.5.3/bin
+
+set -x SLEDGE_BIN /Users/gianfranco.biondi/.sledge/bin
+set -x PATH $PATH $SLEDGE_BIN
 
 # Set Less preferences
 set -x LESS '-R -C -M -I -j 10 -# 4'
@@ -69,3 +75,4 @@ end
 #set -x http_proxy http://127.0.0.1:8079
 #set -x https_proxy http://127.0.0.1:8079
 #set -x no_proxy localhost,127.0.0.1,(hostname)
+set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
