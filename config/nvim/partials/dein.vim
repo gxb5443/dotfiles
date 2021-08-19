@@ -24,7 +24,8 @@ if dein#load_state('/Users/gianfranco.biondi/.cache/dein')
 
   "call dein#add('vim-airline/vim-airline')
   "call dein#add('vim-airline/vim-airline-themes')
-  call dein#add('itchyny/lightline.vim')
+  "call dein#add('itchyny/lightline.vim')
+  call dein#add('glepnir/galaxyline.nvim')
 
   "call dein#add('neoclide/coc.nvim')
   call dein#add('neoclide/coc.nvim', {'merged':0, 'build': 'yarn install --frozen-lockfile'})
