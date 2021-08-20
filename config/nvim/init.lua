@@ -52,3 +52,17 @@ opt.report = 0
 opt.errorbells = true
 opt.visualbell = true
 opt.backspace = {"eol", "start", "indent"}
+
+-- Begin Initialization
+
+local my_modules = {
+	"mappings",
+}
+
+for i = 1, #my_modules, 1 do
+	if not pcall(require, my_modules[i]) then
+		error("Error loading " .. my_modules[i] .. "\n")
+	end
+end
+
+require("mappings").misc()
