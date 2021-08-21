@@ -2,10 +2,8 @@ local packer
 local present, _ = pcall(require, "packerInit")
 
 if present then
-	print("Packer is here")
 	packer = require "packer"
 else
-	print("Where's Packer..?")
 	return false
 end
 
@@ -16,10 +14,40 @@ return packer.startup(function()
 
 	use "alvan/vim-closetag"
 
---  	use {
---		'w0rp/ale',
---    		ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
---    		cmd = 'ALEEnable',
---    		config = 'vim.cmd[[ALEEnable]]',
---	  }
+	use {
+		"hrsh7th/nvim-compe",
+		event = "InsertEnter",
+		config = function()
+			require "plugins.compe"
+		end,
+		wants = "LuaSnip",
+		requires = {
+			{
+				"L3MON4D3/LuaSnip",
+				wants = "friendly-snippets",
+				event = "InsertCharPre",
+				config = function()
+					require "plugins.luasnip"
+				end,
+			},
+			{
+				"rafamadriz/friendly-snippets",
+				event = "InsertCharPre",
+			},
+		},
+	}
+
+	use {
+		"windwp/nvim-autopairs",
+		after = "nvim-compe",
+		config = function()
+			require "plugins.autopairs"
+		end,
+	}
+
+   use {
+      "andymass/vim-matchup",
+      event = "CursorMoved",
+   }
+
   end)
