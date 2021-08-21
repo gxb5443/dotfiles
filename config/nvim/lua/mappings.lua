@@ -25,4 +25,8 @@ M.misc = function()
 
 end
 
+M.nvimtree = function()
+   map("n", "nn", ":NvimTreeToggle<CR>", opt)
+end
+
 return M

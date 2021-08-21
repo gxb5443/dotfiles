@@ -50,4 +50,15 @@ return packer.startup(function()
       event = "CursorMoved",
    }
 
+   use {
+      "kyazdani42/nvim-tree.lua",
+      cmd = "NvimTreeToggle",
+      config = function()
+         require "plugins.nvimtree"
+      end,
+      setup = function()
+         require("mappings").nvimtree()
+      end,
+   } 
+
   end)
