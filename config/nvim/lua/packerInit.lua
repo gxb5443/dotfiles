@@ -1,5 +1,3 @@
-print("Packer Init...")
-
 local cmd = vim.cmd
 local fn = vim.fn
 

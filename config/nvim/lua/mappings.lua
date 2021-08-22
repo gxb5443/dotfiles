@@ -29,4 +29,25 @@ M.nvimtree = function()
    map("n", "nn", ":NvimTreeToggle<CR>", opt)
 end
 
+M.telescope = function()
+	local m = {
+      live_grep = "<leader>fw",
+      git_status = "<leader>gt",
+      git_commits = "<leader>cm",
+      find_files = "<leader>ff",
+      buffers = "<leader>fb",
+      help_tags = "<leader>fh",
+      oldfiles = "<leader>fo",
+   }
+
+   map("n", m.live_grep, ":Telescope live_grep<CR>", opt)
+   map("n", m.git_status, ":Telescope git_status <CR>", opt)
+   map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
+   map("n", m.find_files, ":Telescope find_files <CR>", opt)
+   map("n", m.buffers, ":Telescope buffers<CR>", opt)
+   map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
+   map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
+
+end
+
 return M

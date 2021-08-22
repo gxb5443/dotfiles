@@ -61,4 +61,51 @@ return packer.startup(function()
       end,
    } 
 
-  end)
+   use {
+      "nvim-treesitter/nvim-treesitter",
+      event = "BufRead",
+      config = function()
+         require "plugins.treesitter"
+      end,
+   }
+
+   use {
+	   "kabouzeid/nvim-lspinstall",
+	   event = "BufRead",
+   }
+
+   use {
+      "neovim/nvim-lspconfig",
+	  after = "nvim-lspinstall",
+      config = function()
+         require "plugins.lspconfig"
+      end,
+   }
+
+   use {
+		"akinsho/nvim-bufferline.lua",
+   }
+
+   use {
+	   "nvim-lua/plenary.nvim",
+	   after = "nvim-bufferline.lua",
+   }
+
+   use {
+	   "nvim-telescope/telescope.nvim",
+	   after = "plenary.nvim",
+	   requires = {
+	       {
+	    	   "nvim-telescope/telescope-fzf-native.nvim",
+	    	   run = "make",
+	       },
+	   },
+	   config = function()
+		   require "plugins.telescope"
+	   end,
+	   setup = function()
+		   require("mappings").telescope()
+	   end
+   }
+
+end)
