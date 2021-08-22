@@ -108,4 +108,12 @@ return packer.startup(function()
 	   end
    }
 
+   use {
+	   "lewis6991/gitsigns.nvim",
+	   after = "plenary.nvim",
+	   config = function()
+		   require "plugins.gitsigns"
+	   end,
+   }
+
 end)
