@@ -1,9 +1,18 @@
 #!/bin/bash
+#
+# setup.sh: Setup my new environment
+#
+# Arguments:
+# 	- a list of components to install
+#
+# Environment variables:
+#   - none
+#
 
-set -ex
+set -e
 
-BASE_DIRECTORY="$HOME/Documents"
-DIRECTORY_LOCATION=$BASE_DIRECTORY/dotfiles
+BASE_DIRECTORY="$(dirname "$0")"
+TARGET_DIRECTORY=$BASE_DIRECTORY/dotfiles
 
 #if [[ "$OSTYPE" == "darwin"* ]]; then
 #  echo "Yup, mac alright..."
@@ -14,14 +23,26 @@ DIRECTORY_LOCATION=$BASE_DIRECTORY/dotfiles
 #  brew bundle
 #fi
 
-ln -fs $DIRECTORY_LOCATION/.hammerspoon $HOME/.hammerspoon
+echo "==> Setting up dotfiles..."
 
-ln -fs $DIRECTORY_LOCATION/.inputrc $HOME/.inputrc
-ln -fs $DIRECTORY_LOCATION/.tmux.conf $HOME/.tmux.conf
+for var in "$@"
+do
+	echo "$var"
+	FILE=${BASE_DIRECTORY}/scripts/opt-in/${var}.sh
+	if [[ -f $FILE ]]; then
+		source ${FILE}
+	else
+		echo "WARNING: $var is not a valid option"
+	fi
+done
 
-ln -fs $DIRECTORY_LOCATION/config/nvim $HOME/.config/nvim
+ln -fs $TARGET_DIRECTORY/.hammerspoon $HOME/.hammerspoon
 
-ln -fs $DIRECTORY_LOCATION/config/fish/config.fish $HOME/.config/fish/config.fish
+ln -fs $TARGET_DIRECTORY/.inputrc $HOME/.inputrc
+ln -fs $TARGET_DIRECTORY/.tmux.conf $HOME/.tmux.conf
 
-#ln -fs $DIRECTORY_LOCATION/.gitignore_global $HOME/.gitignore_global
-#ln -fs $DIRECTORY_LOCATION/.gitconfig $HOME/.gitconfig
+ln -fs $TARGET_DIRECTORY/config/nvim $HOME/.config/nvim
+
+ln -fs $TARGET_DIRECTORY/config/fish/config.fish $HOME/.config/fish/config.fish
+
+echo "==> Environment is ready to go!"
