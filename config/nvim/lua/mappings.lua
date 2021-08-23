@@ -50,4 +50,9 @@ M.telescope = function()
 
 end
 
+M.neoformat = function()
+	format = "<leader>fm"
+	map("n", format, ":Neoformat <CR>", opt)
+end
+
 return M
