@@ -124,4 +124,27 @@ return packer.startup(function()
 	   end,
    }
 
+   use {
+	   "lukas-reineke/indent-blankline.nvim",
+	   event = "BufRead",
+	   config = function()
+		   require "plugins.blankline"
+	   end,
+   }
+
+   --use {
+   --    "glepnir/galaxyline.nvim",
+   --    after = "nvim-web-devicons",
+   --    config = function()
+   -- 	   require "plugins.statusline"
+   --    end,
+   --}
+
+   use {
+	   "kyazdani42/nvim-web-devicons",
+	   config = function()
+		   require "plugins.icons"
+	   end,
+   }
+
 end)
