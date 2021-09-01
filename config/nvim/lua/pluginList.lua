@@ -52,7 +52,7 @@ return packer.startup(function()
 
    use {
       "kyazdani42/nvim-tree.lua",
-      cmd = "NvimTreeToggle",
+      cmd = {"NvimTreeToggle", "NvimTreeFindFile"},
       config = function()
          require "plugins.nvimtree"
       end,

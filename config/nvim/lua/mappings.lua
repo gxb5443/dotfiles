@@ -27,6 +27,7 @@ end
 
 M.nvimtree = function()
    map("n", "nn", ":NvimTreeToggle<CR>", opt)
+   map("n", "nf", ":NvimTreeFindFile<CR>", opt)
 end
 
 M.telescope = function()

@@ -38,3 +38,5 @@ set -U FZF_PREVIEW_FILE_CMD "head -n 10"
 set -U FZF_PREVIEW_DIR_CMD "lsd -1"
 
 set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
+
+alias ls="lsd"
