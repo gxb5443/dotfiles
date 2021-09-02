@@ -60,4 +60,10 @@ M.neoformat = function()
 	map("n", format, ":Neoformat <CR>", opt)
 end
 
+M.lspsaga = function()
+	local m = {
+		toggleTerminal = "<C-t>"
+	}
+end
+
 return M

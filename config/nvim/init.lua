@@ -1,57 +1,53 @@
-local opt = vim.opt
-local wo = vim.wo
-local g = vim.g
-
 -- Setting Leader Keys
 
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-g.mapleader = ' '
-g.maplocalleader = ' '
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Editing
 
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.smarttab = true
-opt.smartindent = true
-opt.textwidth = 80
+vim.opt = {
+	tabstop = 4,
+	shiftwidth = 4,
+	smarttab = true,
+	smartindent = true,
+	textwidth = 80,
 
-opt.joinspaces = true
+	joinspaces = true,
+	-- Mouse Mode
+	mouse = 'a',
 
--- Mouse Mode
+	-- Searching,
 
-opt.mouse = 'a'
+	magic = true,
+	showmatch = true,
+	wrapscan = true,
+	hlsearch = true,
+	incsearch = true,
+	infercase = true,
 
--- Searching
+	ignorecase = true,
+	smartcase = true,
 
-opt.magic = true
-opt.showmatch = true
-opt.wrapscan = true
-opt.hlsearch = true
-opt.incsearch = true
-opt.infercase = true
+	hidden = true,
 
-opt.ignorecase = true
-opt.smartcase = true
+	updatetime = 250,
+	backup = false,
+	wb = false,
+	swapfile = false,
+	showcmd = true,
+	showmode = true,
+	lazyredraw = true,
 
-opt.hidden = true
+	number = true,
+	relativenumber = true,
 
-opt.updatetime = 250
-opt.backup = false
-opt.wb = false
-opt.swapfile = false
-opt.showcmd = true
-opt.showmode = true
-opt.lazyredraw = true
-
-opt.number = true
-opt.relativenumber = true
-
-opt.fileformats = {"unix", "dos", "mac"}
-opt.report = 0
-opt.errorbells = true
-opt.visualbell = true
-opt.backspace = {"eol", "start", "indent"}
+	fileformats = {"unix", "dos", "mac"},
+	report = 0,
+	errorbells = true,
+	visualbell = true,
+	backspace = {"eol", "start", "indent"},
+}
 
 -- Begin Initialization
 
