@@ -153,4 +153,12 @@ return packer.startup(function()
 	   cmd = {"Lspsaga", "open_floaterm", "close_floaterm"}
    }
 
+   use {
+	   "hoob3rt/lualine.nvim",
+	   requires = {"kyazdani42/nvim-web-devicons", opt = true},
+	   config = function()
+		   require "plugins.lualine"
+	   end,
+   }
+
 end)
