@@ -147,4 +147,10 @@ return packer.startup(function()
 	   end,
    }
 
+   use {
+	   "glepnir/lspsaga.nvim",
+	   after = "nvim-lspconfig",
+	   cmd = {"Lspsaga", "open_floaterm", "close_floaterm"}
+   }
+
 end)
