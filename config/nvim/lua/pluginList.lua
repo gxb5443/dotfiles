@@ -154,11 +154,20 @@ return packer.startup(function()
    }
 
    use {
-	   "hoob3rt/lualine.nvim",
+	   'famiu/feline.nvim',
 	   requires = {"kyazdani42/nvim-web-devicons", opt = true},
 	   config = function()
-		   require "plugins.lualine"
+		   require "plugins.feline"
 	   end,
    }
+
+--   use {
+--	   "hoob3rt/lualine.nvim",
+--	   requires = {"kyazdani42/nvim-web-devicons", opt = true},
+--	   config = function()
+--		   require "plugins.lualine"
+--	   end,
+--   }
+
 
 end)

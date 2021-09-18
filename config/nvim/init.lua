@@ -6,48 +6,48 @@ vim.g.maplocalleader = ' '
 
 -- Editing
 
-vim.opt = {
-	tabstop = 4,
-	shiftwidth = 4,
-	smarttab = true,
-	smartindent = true,
-	textwidth = 80,
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.smarttab = true
+vim.o.smartindent = true
+vim.o.textwidth = 80
 
-	joinspaces = true,
-	-- Mouse Mode
-	mouse = 'a',
+vim.o.joinspaces = true
+-- Mouse Mode
+vim.o.mouse = 'a'
 
-	-- Searching,
+-- Searching
 
-	magic = true,
-	showmatch = true,
-	wrapscan = true,
-	hlsearch = true,
-	incsearch = true,
-	infercase = true,
+vim.o.magic = true
+vim.o.showmatch = true
+vim.o.wrapscan = true
+vim.o.hlsearch = true
+vim.o.incsearch = true
+vim.o.infercase = true
 
-	ignorecase = true,
-	smartcase = true,
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
-	hidden = true,
+vim.o.hidden = true
 
-	updatetime = 250,
-	backup = false,
-	wb = false,
-	swapfile = false,
-	showcmd = true,
-	showmode = true,
-	lazyredraw = true,
+vim.o.updatetime = 250
+vim.o.backup = false
+vim.o.wb = false
+vim.o.swapfile = false
+vim.o.showcmd = true
+vim.o.showmode = true
+vim.o.lazyredraw = true
 
-	number = true,
-	relativenumber = true,
+vim.o.number = true
+vim.o.relativenumber = true
 
-	fileformats = {"unix", "dos", "mac"},
-	report = 0,
-	errorbells = true,
-	visualbell = true,
-	backspace = {"eol", "start", "indent"},
-}
+vim.opt.fileformats = {"unix", "dos", "mac"}
+vim.o.report = 0
+vim.o.errorbells = true
+vim.o.visualbell = true
+vim.opt.backspace = {"eol", "start", "indent"}
+
+vim.o.termguicolors = true
 
 -- Begin Initialization
 
