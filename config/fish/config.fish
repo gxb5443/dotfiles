@@ -1,10 +1,13 @@
 # Set up homebrew
-set -x PATH $PATH /usr/local/Cellar
-set -x PATH $PATH /usr/local/opt/llvm/bin/
+#set -x PATH $PATH /usr/local/Cellar
+#set -x PATH $PATH /usr/local/opt/llvm/bin/
+
+fish_add_path --path --append /usr/local/Cellar
+fish_add_path --path --append /usr/local/opt/llvm/bin/
 
 # Set up golang stuff
 set -g -x GOPATH $HOME/go
-set -x GOROOT /usr/local/opt/go/libexec
+# set -x GOROOT /usr/local/opt/go/libexec
 
 set -x PATH $PATH $GOPATH/bin
 set -x PATH $PATH $GOROOT/bin
@@ -40,3 +43,13 @@ set -U FZF_PREVIEW_DIR_CMD "lsd -1"
 set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
 
 alias ls="lsd"
+
+fish_add_path /opt/homebrew/bin
+
+starship init fish | source
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /opt/homebrew/Caskroom/mambaforge/base/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+

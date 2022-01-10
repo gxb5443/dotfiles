@@ -9,10 +9,9 @@
 #   - none
 #
 
-set -e
+set -ex
 
-BASE_DIRECTORY="$(dirname "$0")"
-TARGET_DIRECTORY=$BASE_DIRECTORY/dotfiles
+TARGET_DIRECTORY="$(pwd)"
 
 #if [[ "$OSTYPE" == "darwin"* ]]; then
 #  echo "Yup, mac alright..."

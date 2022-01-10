@@ -54,14 +54,80 @@ return packer.startup(function()
       "kyazdani42/nvim-tree.lua",
       cmd = {"NvimTreeToggle", "NvimTreeFindFile"},
       config = function()
-         require "plugins.nvimtree"
+    	require'nvim-tree'.setup {}
+    	require "plugins.nvimtree"
       end,
       setup = function()
-         require("mappings").nvimtree()
+        require("mappings").nvimtree()
       end,
    } 
 
-   use {
+	--use {
+	--  "nvim-neo-tree/neo-tree.nvim",
+	--	branch = "v1.x",
+	--	requires = { 
+	--	 	"nvim-lua/plenary.nvim",
+	--	  	"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+	--		"MunifTanjim/nui.nvim" 
+	--	},
+	--	config = function ()
+	--	  require("neo-tree").setup({
+	--		popup_border_style = "rounded",
+	--		filesystem = {
+	--		  window = {
+	--			mappings = {
+	--			  ["<2-LeftMouse>"] = "open",
+	--			  ["<cr>"] = "open",
+	--			  ["S"] = "open_split",
+	--			  ["s"] = "open_vsplit",
+	--			  ["C"] = "close_node",
+	--			  ["<bs>"] = "navigate_up",
+	--			  ["."] = "set_root",
+	--			  ["H"] = "toggle_hidden",
+	--			  ["I"] = "toggle_gitignore",
+	--			  ["R"] = "refresh",
+	--			  ["/"] = "filter_as_you_type",
+	--			  ["f"] = "filter_on_submit",
+	--			  ["<c-x>"] = "clear_filter",
+	--			  ["a"] = "add",
+	--			  ["d"] = "delete",
+	--			  ["r"] = "rename",
+	--			  ["c"] = "copy_to_clipboard",
+	--			  ["x"] = "cut_to_clipboard",
+	--			  ["p"] = "paste_from_clipboard",
+	--			}
+	--		  }
+	--		},
+	--		git_status = {
+	--		  window = {
+	--			mappings = {
+	--			  ["<2-LeftMouse>"] = "open",
+	--			  ["<cr>"] = "open",
+	--			  ["S"] = "open_split",
+	--			  ["s"] = "open_vsplit",
+	--			  ["C"] = "close_node",
+	--			  ["R"] = "refresh",
+	--			  ["d"] = "delete",
+	--			  ["r"] = "rename",
+	--			  ["c"] = "copy_to_clipboard",
+	--			  ["x"] = "cut_to_clipboard",
+	--			  ["p"] = "paste_from_clipboard",
+	--			  ["A"]  = "git_add_all",
+	--			  ["gu"] = "git_unstage_file",
+	--			  ["ga"] = "git_add_file",
+	--			  ["gr"] = "git_revert_file",
+	--			  ["gc"] = "git_commit",
+	--			  ["gp"] = "git_push",
+	--			  ["gg"] = "git_commit_and_push",
+	--			}
+	--		  }
+	--		}
+	--	  }) 
+	--	  vim.cmd([[nnoremap \ :NeoTreeReveal<cr>]])
+	--	end
+	--}
+
+   	use {
       "nvim-treesitter/nvim-treesitter",
       event = "BufRead",
       config = function()
@@ -74,13 +140,18 @@ return packer.startup(function()
 	   event = "BufRead",
    }
 
+   --use {
+   --   "neovim/nvim-lspconfig",
+   --   after = "nvim-lspinstall",
+   --   config = function()
+   --      require "plugins.lspconfig"
+   --   end,
+   --}
+
    use {
-      "neovim/nvim-lspconfig",
-	  after = "nvim-lspinstall",
-      config = function()
-         require "plugins.lspconfig"
-      end,
-   }
+		'neovim/nvim-lspconfig',
+		'williamboman/nvim-lsp-installer',
+	}
 
    use {
 		"akinsho/nvim-bufferline.lua",
